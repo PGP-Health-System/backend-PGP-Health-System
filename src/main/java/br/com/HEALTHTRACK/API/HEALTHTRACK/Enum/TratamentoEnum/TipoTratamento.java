@@ -1,0 +1,11 @@
+package br.com.HEALTHTRACK.API.HEALTHTRACK.Enum.TratamentoEnum;
+
+public enum TipoTratamento {
+    MEDICAMENTOSO,
+    FISIOTERAPIA,
+    PSICOTERAPIA,
+    NUTRICIONAL,
+    PROCEDIMENTO,
+    CIRURGICO,
+    MONITORAMENTO
+}

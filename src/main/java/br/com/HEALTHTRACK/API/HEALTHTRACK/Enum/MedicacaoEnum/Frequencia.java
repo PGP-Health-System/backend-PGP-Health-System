@@ -1,0 +1,18 @@
+package br.com.HEALTHTRACK.API.HEALTHTRACK.Enum.MedicacaoEnum;
+
+public enum Frequencia {
+    UMA_VEZ_DIA,
+    DUAS_VEZES_DIA,
+    TRES_VEZES_DIA,
+    QUATRO_VEZES_DIA,
+    A_CADA_6_HORAS,
+    A_CADA_8_HORAS,
+    A_CADA_12_HORAS,
+    SEGUNDA_FEIRA,
+    TERCA_FEIRA,
+    QUARTA_FEIRA,
+    QUINTA_FEIRA,
+    SEXTA_FEIRA,
+    SABADO,
+    DOMINGO
+}

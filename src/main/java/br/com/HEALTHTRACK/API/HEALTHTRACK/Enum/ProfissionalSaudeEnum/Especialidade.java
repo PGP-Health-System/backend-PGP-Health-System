@@ -1,0 +1,17 @@
+package br.com.HEALTHTRACK.API.HEALTHTRACK.Enum.ProfissionalSaudeEnum;
+
+public enum Especialidade {
+    CLINICO_GERAL,
+    PEDIATRIA,
+    CARDIOLOGIA,
+    ENDOCRINOLOGIA,
+    GINECOLOGIA,
+    PSIQUIATRIA,
+    DERMATOLOGIA,
+    ORTOPEDIA,
+    ENFERMAGEM,
+    FISIOTERAPIA,
+    NUTRICAO,
+    OUTRA
+
+}
