@@ -1,4 +1,4 @@
-package br.com.HEALTHTRACK.API.HEALTHTRACK.DTO.Usuario;
+package br.com.HEALTHTRACK.API.HEALTHTRACK.DTO;
 
 import br.com.HEALTHTRACK.API.HEALTHTRACK.Entity.Paciente;
 import br.com.HEALTHTRACK.API.HEALTHTRACK.Entity.ProfissionalSaude;

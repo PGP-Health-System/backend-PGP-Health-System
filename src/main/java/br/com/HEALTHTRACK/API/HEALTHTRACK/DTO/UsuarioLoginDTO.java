@@ -1,4 +1,4 @@
-package br.com.HEALTHTRACK.API.HEALTHTRACK.DTO.Usuario;
+package br.com.HEALTHTRACK.API.HEALTHTRACK.DTO;
 
 public record UsuarioLoginDTO(
         String email,
