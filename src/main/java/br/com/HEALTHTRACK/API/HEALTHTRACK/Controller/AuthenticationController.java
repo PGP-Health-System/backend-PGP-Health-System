@@ -83,7 +83,13 @@ public class AuthenticationController {
                     .build();
             usuarioRepository.save(novoUsuario);
         } else {
-            throw new IllegalArgumentException("Um usuário deve ser associado a um profissional de saúde ou a um paciente!");
+            Usuario novoUsuario = Usuario.builder()
+                    .username(registroDTO.email())
+                    .senha(senhaCriptografada)
+                    .role(registroDTO.role())
+                    .ativo(true)
+                    .build();
+            usuarioRepository.save(novoUsuario);
         }
         return ResponseEntity.status(201).body("Usuário registrado com sucesso!");
     }

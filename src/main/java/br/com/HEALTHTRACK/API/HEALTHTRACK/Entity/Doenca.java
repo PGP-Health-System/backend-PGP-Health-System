@@ -1,6 +1,7 @@
 package br.com.HEALTHTRACK.API.HEALTHTRACK.Entity;
 
 import br.com.HEALTHTRACK.API.HEALTHTRACK.Enum.AlergiaEnum.HistoricoFamiliar;
+import br.com.HEALTHTRACK.API.HEALTHTRACK.Enum.DoencaEnum.EstagioDoenca;
 import br.com.HEALTHTRACK.API.HEALTHTRACK.Enum.DoencaEnum.Gravidade;
 import br.com.HEALTHTRACK.API.HEALTHTRACK.Enum.DoencaEnum.StatusDoenca;
 import br.com.HEALTHTRACK.API.HEALTHTRACK.Enum.DoencaEnum.TipoCronicidade;
@@ -78,5 +79,8 @@ public class Doenca {
     @ManyToOne
     @NotNull
     private Paciente paciente;
+
+    @NotNull
+    private EstagioDoenca estagio;
 }
 
