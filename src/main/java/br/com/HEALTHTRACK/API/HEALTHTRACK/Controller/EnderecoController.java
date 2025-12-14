@@ -4,9 +4,11 @@ import br.com.HEALTHTRACK.API.HEALTHTRACK.DTO.Endereco.EnderecoDTO;
 import br.com.HEALTHTRACK.API.HEALTHTRACK.DTO.Endereco.EnderecoResponseDTO;
 import br.com.HEALTHTRACK.API.HEALTHTRACK.Service.EnderecoService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
 import java.util.Map;
 
 @RestController
@@ -21,8 +23,8 @@ public class EnderecoController {
     }
 
     @PostMapping("/enderecos")
-    public ResponseEntity<Map<String, EnderecoDTO>> registraEndereco(@RequestBody EnderecoResponseDTO enderecoResponseDTO){
+    public ResponseEntity<Map<String, EnderecoDTO>> registraEndereco(@RequestBody EnderecoResponseDTO enderecoResponseDTO) throws IOException, InterruptedException {
         EnderecoDTO enderecoDTO = enderecoService.salvaEndereco(enderecoResponseDTO);
-        return ResponseEntity.status(201).body(Map.of("Sucesso!", enderecoDTO));
+        return ResponseEntity.status(HttpStatus.CREATED).body(Map.of("Sucesso!", enderecoDTO));
     }
 }
