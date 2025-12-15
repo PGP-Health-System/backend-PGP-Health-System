@@ -1,6 +1,7 @@
 package br.com.HEALTHTRACK.API.HEALTHTRACK.DTO.Paciente;
 
 import br.com.HEALTHTRACK.API.HEALTHTRACK.DTO.Doenca.DoencaDTO;
+import br.com.HEALTHTRACK.API.HEALTHTRACK.Entity.Doenca;
 import br.com.HEALTHTRACK.API.HEALTHTRACK.Entity.Endereco;
 import br.com.HEALTHTRACK.API.HEALTHTRACK.Enum.PacienteEnum.EstadoCivil;
 import br.com.HEALTHTRACK.API.HEALTHTRACK.Enum.PacienteEnum.Sexo;
@@ -15,7 +16,7 @@ public record PacienteResumoDTO(
         Sexo sexo,
         LocalDate dataNascimento,
         TipoSanguinio tipoSanguinio,
-        List<DoencaDTO> doencas,
+        List<Doenca> doencas,
         List<String> historicoFamiliar
 ) {
 }

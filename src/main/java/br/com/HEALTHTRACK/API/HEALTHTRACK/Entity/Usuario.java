@@ -58,7 +58,7 @@ public class Usuario implements UserDetails {
     }
 
     @Override
-    public @Nullable String getPassword() {
-        return this.getSenha();
+    public String getPassword() {
+        return this.senha;
     }
 }
