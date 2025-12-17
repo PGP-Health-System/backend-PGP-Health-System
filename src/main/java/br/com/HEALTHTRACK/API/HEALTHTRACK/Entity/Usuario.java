@@ -60,4 +60,6 @@ public class Usuario implements UserDetails {
     public String getPassword() {
         return this.senha;
     }
+
+    
 }
