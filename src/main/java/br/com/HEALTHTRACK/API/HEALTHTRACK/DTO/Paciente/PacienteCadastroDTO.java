@@ -38,9 +38,7 @@ public record PacienteCadastroDTO(
         @NotBlank
         String nomeMae,
         String numeroSus,
-        @NotNull
         List<Doenca> doencas,
-        @NotNull
         List<HistoricoFamiliarDTO> historicoFamiliar
 ) {
 }
