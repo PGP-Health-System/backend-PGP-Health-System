@@ -23,14 +23,14 @@ import java.util.List;
 public class PacienteService {
 
     private final PacienteRepository pacienteRepository;
-    @Autowired
-    private PacienteMapper pacienteMapper;
+    private final PacienteMapper pacienteMapper;
 
-    public PacienteService(PacienteRepository pacienteRepository) {
+    public PacienteService(PacienteRepository pacienteRepository, PacienteMapper pacienteMapper) {
+        this.pacienteMapper = pacienteMapper;
         this.pacienteRepository = pacienteRepository;
     }
 
-    public String cadastrarPaciente(@Valid PacienteCadastroDTO dto) {
+    public PacienteDetalhesDTO cadastrarPaciente(@Valid PacienteCadastroDTO dto) {
 
         if (pacienteRepository.existsByCpf(dto.cpf()))
             throw new CpfDuplicado("CPF já cadastrado");
@@ -47,11 +47,10 @@ public class PacienteService {
 
         pacienteRepository.save(paciente);
 
-        return "Paciente cadastrado com sucesso! " +
-                pacienteMapper.converterPacienteDtoDetalhes(paciente).toString();
+        return pacienteMapper.converterPacienteDtoDetalhes(paciente);
     }
 
-    public String atualizarPaciente(Long id, PacienteAtualizacaoDTO dto) {
+    public PacienteDetalhesDTO atualizarPaciente(Long id, PacienteAtualizacaoDTO dto) {
 
         Paciente paciente = buscarPaciente(id);
 
@@ -64,11 +63,10 @@ public class PacienteService {
 
         pacienteRepository.save(paciente);
 
-        return "Paciente atualizado com sucesso! " +
-                pacienteMapper.converterPacienteDtoDetalhes(paciente).toString();
+        return pacienteMapper.converterPacienteDtoDetalhes(paciente);
     }
 
-    public String desativarPaciente(Long id) {
+    public PacienteDetalhesDTO desativarPaciente(Long id) {
         Paciente paciente = buscarPaciente(id);
 
         if (paciente.getStatusPaciente() != StatusPaciente.ATIVO)
@@ -77,11 +75,10 @@ public class PacienteService {
         paciente.setStatusPaciente(StatusPaciente.INATIVO);
         pacienteRepository.save(paciente);
 
-        return "Paciente desativado com sucesso! " +
-        pacienteMapper.converterPacienteDtoDetalhes(paciente).toString();
+        return pacienteMapper.converterPacienteDtoDetalhes(paciente);
     }
 
-    public String ativarPaciente(Long id) {
+    public PacienteDetalhesDTO ativarPaciente(Long id) {
         Paciente paciente = buscarPaciente(id);
 
         if (paciente.getStatusPaciente() == StatusPaciente.ATIVO)
@@ -90,8 +87,7 @@ public class PacienteService {
         paciente.setStatusPaciente(StatusPaciente.ATIVO);
         pacienteRepository.save(paciente);
 
-        return "Paciente ativado com sucesso! " +
-                pacienteMapper.converterPacienteDtoDetalhes(paciente).toString();
+        return pacienteMapper.converterPacienteDtoDetalhes(paciente);
     }
 
     public PacienteDetalhesDTO buscarDetalhes(Long id) {

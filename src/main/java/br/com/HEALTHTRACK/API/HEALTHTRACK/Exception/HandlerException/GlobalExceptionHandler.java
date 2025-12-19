@@ -2,6 +2,7 @@ package br.com.HEALTHTRACK.API.HEALTHTRACK.Exception.HandlerException;
 
 import br.com.HEALTHTRACK.API.HEALTHTRACK.Exception.HandlerException.Autenticacao.ErroDuploTipoUsuario;
 import br.com.HEALTHTRACK.API.HEALTHTRACK.Exception.HandlerException.Autenticacao.ErroUsuarioExistente;
+import br.com.HEALTHTRACK.API.HEALTHTRACK.Exception.HandlerException.Paciente.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -62,6 +63,69 @@ public class GlobalExceptionHandler {
     public ResponseEntity<?> handleErroUsuarioExistente(ErroUsuarioExistente ex) {
         return ResponseEntity
                 .status(HttpStatus.CONFLICT)
+                .body(Map.of("erro", ex.getMessage()));
+    }
+
+    @ExceptionHandler(CpfDuplicado.class)
+    public ResponseEntity<?> handleCpfDuplicado(CpfDuplicado ex){
+        return ResponseEntity
+                .status(HttpStatus.CONFLICT)
+                .body(Map.of("erro", ex.getMessage()));
+    }
+
+    @ExceptionHandler(DataNascimentoInvalida.class)
+    public ResponseEntity<?> handleDataNascimentoInvalida(DataNascimentoInvalida ex){
+        return ResponseEntity
+                .status(HttpStatus.BAD_REQUEST)
+                .body(Map.of("erro", ex.getMessage()));
+    }
+
+    @ExceptionHandler(EmailDuplicado.class)
+    public ResponseEntity<?> handleEmailDuplicado(EmailDuplicado ex){
+        return ResponseEntity
+                .status(HttpStatus.CONFLICT)
+                .body(Map.of("erro", ex.getMessage()));
+    }
+
+    @ExceptionHandler(ErroAoBuscarPaciente.class)
+    public ResponseEntity<?> handleErroBuscarPaciente(ErroAoBuscarPaciente ex){
+        return ResponseEntity
+                .status(HttpStatus.NOT_FOUND)
+                .body(Map.of("erro", ex.getMessage()));
+    }
+
+    @ExceptionHandler(ErroAtivarPaciente.class)
+    public ResponseEntity<?> handleErroAtivarPaciente(ErroAtivarPaciente ex){
+        return ResponseEntity
+                .status(HttpStatus.CONFLICT)
+                .body(Map.of("erro", ex.getMessage()));
+    }
+
+    @ExceptionHandler(ErroAtualizarPaciente.class)
+    public ResponseEntity<?> handleErroAtualizarPaciente(ErroAtualizarPaciente ex){
+        return ResponseEntity
+                .status(HttpStatus.BAD_REQUEST)
+                .body(Map.of("erro", ex.getMessage()));
+    }
+
+    @ExceptionHandler(ErroCadastrarPaciente.class)
+    public ResponseEntity<?> handleErroCadastrarPaciente(ErroCadastrarPaciente ex){
+        return ResponseEntity
+                .status(HttpStatus.BAD_REQUEST)
+                .body(Map.of("erro", ex.getMessage()));
+    }
+
+    @ExceptionHandler(ErroDesativarPaciente.class)
+    public ResponseEntity<?> handleErroDesativarPaciente(ErroDesativarPaciente ex){
+        return ResponseEntity
+                .status(HttpStatus.CONFLICT)
+                .body(Map.of("erro", ex.getMessage()));
+    }
+
+    @ExceptionHandler(PacienteNaoLocalizado.class)
+    public ResponseEntity<?> handlePacienteNaoLocalizado (PacienteNaoLocalizado ex){
+        return ResponseEntity
+                .status(HttpStatus.NOT_FOUND)
                 .body(Map.of("erro", ex.getMessage()));
     }
 }

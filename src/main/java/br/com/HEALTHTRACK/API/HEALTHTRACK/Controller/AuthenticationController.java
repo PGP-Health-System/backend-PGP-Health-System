@@ -2,9 +2,6 @@ package br.com.HEALTHTRACK.API.HEALTHTRACK.Controller;
 
 import br.com.HEALTHTRACK.API.HEALTHTRACK.DTO.UsuarioLoginDTO;
 import br.com.HEALTHTRACK.API.HEALTHTRACK.DTO.UsuarioRegistroDTO;
-import br.com.HEALTHTRACK.API.HEALTHTRACK.Exception.HandlerException.Autenticacao.ErroLogin;
-import br.com.HEALTHTRACK.API.HEALTHTRACK.Exception.HandlerException.Autenticacao.ErroRegistro;
-import br.com.HEALTHTRACK.API.HEALTHTRACK.Exception.HandlerException.Autenticacao.ErroUsuarioExistente;
 import br.com.HEALTHTRACK.API.HEALTHTRACK.Service.AuthService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
