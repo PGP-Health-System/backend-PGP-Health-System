@@ -1,5 +1,7 @@
 package br.com.HEALTHTRACK.API.HEALTHTRACK.Exception.HandlerException;
 
+import br.com.HEALTHTRACK.API.HEALTHTRACK.Exception.HandlerException.Autenticacao.ErroDuploTipoUsuario;
+import br.com.HEALTHTRACK.API.HEALTHTRACK.Exception.HandlerException.Autenticacao.ErroUsuarioExistente;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -47,5 +49,19 @@ public class GlobalExceptionHandler {
         return ResponseEntity
                 .status(HttpStatus.INTERNAL_SERVER_ERROR)
                 .body(Map.of("erro", "Erro interno no servidor: " + ex.getMessage()));
+    }
+
+    @ExceptionHandler(ErroDuploTipoUsuario.class)
+    public ResponseEntity<?> handlerErroDuploTipoUsuario(ErroDuploTipoUsuario ex) {
+        return ResponseEntity
+                .status(HttpStatus.BAD_REQUEST)
+                .body(Map.of("erro", ex.getMessage()));
+    }
+
+    @ExceptionHandler(ErroUsuarioExistente.class)
+    public ResponseEntity<?> handleErroUsuarioExistente(ErroUsuarioExistente ex) {
+        return ResponseEntity
+                .status(HttpStatus.CONFLICT)
+                .body(Map.of("erro", ex.getMessage()));
     }
 }

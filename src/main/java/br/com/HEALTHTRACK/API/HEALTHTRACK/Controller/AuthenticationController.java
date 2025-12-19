@@ -4,7 +4,14 @@ import br.com.HEALTHTRACK.API.HEALTHTRACK.DTO.UsuarioLoginDTO;
 import br.com.HEALTHTRACK.API.HEALTHTRACK.DTO.UsuarioRegistroDTO;
 import br.com.HEALTHTRACK.API.HEALTHTRACK.Exception.HandlerException.Autenticacao.ErroLogin;
 import br.com.HEALTHTRACK.API.HEALTHTRACK.Exception.HandlerException.Autenticacao.ErroRegistro;
+import br.com.HEALTHTRACK.API.HEALTHTRACK.Exception.HandlerException.Autenticacao.ErroUsuarioExistente;
 import br.com.HEALTHTRACK.API.HEALTHTRACK.Service.AuthService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,10 +20,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Locale;
+
 @RestController
 @RequestMapping("/entrar")
-
-public class AuthenticationController {
+@Tag(name = "Autenticação", description = "Endpoints responsáveis pela autenticação e registro de usuários")public class AuthenticationController {
 
     private final AuthService authService;
 
@@ -28,21 +36,59 @@ public class AuthenticationController {
     // Ajustei algumas coisas aqui dentro, coloquei as regras dentro de AuthService para dar uma limpada
     // Também ajustei alguns retornos, testei no Insomnia e esta tudo indo :)
 
+
+    @Operation(
+            summary = "Realizar Login Usuario",
+            description = "Controller responsavel por realizar o login dos usuarios"
+    )
+    @ApiResponses(value = {
+            @ApiResponse(
+                    responseCode = "200",
+                    description = "Usuario logado com sucesso!",
+                    content = @Content(
+                            mediaType = "application/json",
+                            schema = @Schema(implementation = String.class)
+                    )
+            ),
+            @ApiResponse(
+                    responseCode = "401",
+                    description = "Dados de Usuario invalido!"
+            )
+    })
     @PostMapping("/login")
     public ResponseEntity<String> login(@RequestBody @Valid UsuarioLoginDTO loginDTO) {
-        try{
-            return ResponseEntity.status(200).body(authService.login(loginDTO));
-        } catch (ErroLogin e){
-            throw new ErroLogin("Usuário ou senha inválidos!");
-        }
+        return ResponseEntity.status(200).body(authService.login(loginDTO));
     }
 
+    @Operation(
+            summary = "Realiza o Cadastro do Usuario",
+            description = "Controller responsavel por realizar o cadastro dos usuarios"
+    )
+    @ApiResponses(value = {
+            @ApiResponse(
+                    responseCode = "201",
+                    description = "Usuario cadastrado com sucesso!",
+                    content = @Content(
+                            mediaType = "application/json",
+                            schema = @Schema(implementation = String.class)
+                    )
+            ),
+            @ApiResponse(
+                    responseCode = "409",
+                    description = "Usuario já cadastrado em sistema, tente novamente!"
+            ),
+            @ApiResponse(
+                    responseCode = "400",
+                    description = "Um usuário não pode ser tanto profissional de saúde quanto paciente ao mesmo tempo!"
+            ),
+            @ApiResponse(
+                    responseCode = "401",
+                    description = "Erro ao realizar o cadastro do usuario"
+            )
+
+    })
     @PostMapping("/registrar")
     public ResponseEntity<String> registrar(@RequestBody @Valid UsuarioRegistroDTO registroDTO) {
-        try {
-            return ResponseEntity.status(HttpStatus.CREATED).body(authService.registro(registroDTO));
-        } catch (ErroRegistro e) {
-            throw new ErroRegistro("Falha ao realizar o registro: " + e.getMessage());
-        }
+        return ResponseEntity.status(HttpStatus.CREATED).body(authService.registro(registroDTO));
     }
 }
