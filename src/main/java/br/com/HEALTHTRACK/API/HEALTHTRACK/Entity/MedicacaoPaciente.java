@@ -35,9 +35,6 @@ public class MedicacaoPaciente {
     @NotBlank
     private String dosagem;
 
-    @Pattern(regexp = "^[\\p{L}0-9 ]+$" , message = "Carácteres especiais não podem ser códigos de exame" )
-    private String codigoExame;
-
     private String viaAdministracao;
 
     private String frequencia;

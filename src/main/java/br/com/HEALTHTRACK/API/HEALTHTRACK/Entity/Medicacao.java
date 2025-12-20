@@ -6,6 +6,7 @@ import br.com.HEALTHTRACK.API.HEALTHTRACK.Enum.MedicacaoEnum.ViaAdministracao;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 import lombok.*;
 
@@ -29,6 +30,11 @@ public class Medicacao {
     @NotBlank
     @Size(max = 120)
     private String nomeMedicamento;
+
+    @Pattern(regexp = "^[\\p{L}0-9 ]+$" , message = "Carácteres especiais não podem ser usadas como" +
+            "códigos de medicamento" )
+
+    private String codigoMedicamento;
 
     @NotBlank
     @Size(max = 50)
