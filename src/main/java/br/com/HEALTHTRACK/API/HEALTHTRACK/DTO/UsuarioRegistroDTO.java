@@ -5,7 +5,7 @@ import br.com.HEALTHTRACK.API.HEALTHTRACK.Entity.ProfissionalSaude;
 import br.com.HEALTHTRACK.API.HEALTHTRACK.Enum.UsuarioEnum.Role;
 
 public record UsuarioRegistroDTO(
-        String email,
+        String username,
         String senha,
         Role role,
         ProfissionalSaude profissionalSaude,

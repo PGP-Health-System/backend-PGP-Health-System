@@ -5,7 +5,6 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
-import org.jspecify.annotations.Nullable;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -58,8 +57,8 @@ public class Usuario implements UserDetails {
     }
 
     @Override
-    public @Nullable String getPassword() {
-        return this.getSenha();
+    public String getPassword() {
+        return this.senha;
     }
 
     

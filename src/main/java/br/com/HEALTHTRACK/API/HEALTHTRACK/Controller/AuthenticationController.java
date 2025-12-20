@@ -2,95 +2,54 @@ package br.com.HEALTHTRACK.API.HEALTHTRACK.Controller;
 
 import br.com.HEALTHTRACK.API.HEALTHTRACK.DTO.UsuarioLoginDTO;
 import br.com.HEALTHTRACK.API.HEALTHTRACK.DTO.UsuarioRegistroDTO;
+<<<<<<< HEAD
 import br.com.HEALTHTRACK.API.HEALTHTRACK.Entity.Usuario;
 import br.com.HEALTHTRACK.API.HEALTHTRACK.Repository.UsuarioRepository;
 import br.com.HEALTHTRACK.API.HEALTHTRACK.Security.TokenService;
 import jakarta.validation.Valid;
+=======
+import br.com.HEALTHTRACK.API.HEALTHTRACK.Exception.HandlerException.Autenticacao.ErroLogin;
+import br.com.HEALTHTRACK.API.HEALTHTRACK.Exception.HandlerException.Autenticacao.ErroRegistro;
+import br.com.HEALTHTRACK.API.HEALTHTRACK.Service.AuthService;
+import jakarta.validation.Valid;
+import org.springframework.http.HttpStatus;
+>>>>>>> 4f9b278272dc19dad549f6aec03deed7be94a25e
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.Objects;
-
 @RestController
 @RequestMapping("/entrar")
 public class AuthenticationController {
 
-    private final UsuarioRepository usuarioRepository;
-    private final AuthenticationManager authenticationManager;
-    private final PasswordEncoder passwordEncoder;
-    private final TokenService tokenService;
+    private final AuthService authService;
 
-    public AuthenticationController(
-            UsuarioRepository usuarioRepository,
-            AuthenticationManager authenticationManager,
-            PasswordEncoder passwordEncoder,
-            TokenService tokenService
-    ) {
-        this.usuarioRepository = usuarioRepository;
-        this.authenticationManager = authenticationManager;
-        this.passwordEncoder = passwordEncoder;
-        this.tokenService = tokenService;
+    public AuthenticationController(AuthService authService) {
+    this.authService = authService;
     }
 
+    // COMENTARIO PEDRO BORBA -- 15/12/2025
+    // Ajustei algumas coisas aqui dentro, coloquei as regras dentro de AuthService para dar uma limpada
+    // Também ajustei alguns retornos, testei no Insomnia e esta tudo indo :)
+
     @PostMapping("/login")
-    public ResponseEntity login(@RequestBody @Valid UsuarioLoginDTO loginDTO) {
+    public ResponseEntity<String> login(@RequestBody @Valid UsuarioLoginDTO loginDTO) {
         try{
-            var usernamePassword = new UsernamePasswordAuthenticationToken(loginDTO.email(), loginDTO.senha());
-            var auth = authenticationManager.authenticate(usernamePassword);
-
-            var token = tokenService.gerarToken((Usuario) Objects.requireNonNull(auth.getPrincipal()));
-
-            return ResponseEntity.status(200).body("Usuário logado com sucesso: " + token);
-        } catch (Exception e){
-            throw new UsernameNotFoundException("Usuário ou senha inválidos!");
+            return ResponseEntity.status(200).body(authService.login(loginDTO));
+        } catch (ErroLogin e){
+            throw new ErroLogin("Usuário ou senha inválidos!");
         }
     }
 
     @PostMapping("/registrar")
-    public ResponseEntity registrar(@RequestBody @Valid UsuarioRegistroDTO registroDTO) {
-        if (usuarioRepository.localizarUsuario(registroDTO.email()) != null) {
-            throw new IllegalArgumentException("Usuário já existe!");
+    public ResponseEntity<String> registrar(@RequestBody @Valid UsuarioRegistroDTO registroDTO) {
+        try {
+            return ResponseEntity.status(HttpStatus.CREATED).body(authService.registro(registroDTO));
+        } catch (ErroRegistro e) {
+            throw new ErroRegistro("Falha ao realizar o registro: " + e.getMessage());
         }
-
-        String senhaCriptografada = passwordEncoder.encode(registroDTO.senha());
-        if (registroDTO.profissionalSaude() != null && registroDTO.paciente() != null) {
-            throw new IllegalArgumentException("Um usuário não pode ser tanto profissional de saúde quanto paciente ao mesmo tempo!");
-        }
-
-        if (registroDTO.profissionalSaude() != null) {
-            Usuario novoUsuario = Usuario.builder()
-                    .username(registroDTO.email())
-                    .senha(senhaCriptografada)
-                    .role(registroDTO.role())
-                    .profissionalSaude(registroDTO.profissionalSaude())
-                    .ativo(true)
-                    .build();
-            usuarioRepository.save(novoUsuario);
-        } else if (registroDTO.paciente() != null) {
-            Usuario novoUsuario = Usuario.builder()
-                    .username(registroDTO.email())
-                    .senha(senhaCriptografada)
-                    .role(registroDTO.role())
-                    .paciente(registroDTO.paciente())
-                    .ativo(true)
-                    .build();
-            usuarioRepository.save(novoUsuario);
-        } else {
-            Usuario novoUsuario = Usuario.builder()
-                    .username(registroDTO.email())
-                    .senha(senhaCriptografada)
-                    .role(registroDTO.role())
-                    .ativo(true)
-                    .build();
-            usuarioRepository.save(novoUsuario);
-        }
-        return ResponseEntity.status(201).body("Usuário registrado com sucesso!");
     }
 }

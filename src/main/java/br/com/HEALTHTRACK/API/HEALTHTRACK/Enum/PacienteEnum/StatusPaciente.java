@@ -1,5 +1,6 @@
 package br.com.HEALTHTRACK.API.HEALTHTRACK.Enum.PacienteEnum;
 
+
 public enum StatusPaciente {
     ATIVO,
     INATIVO,

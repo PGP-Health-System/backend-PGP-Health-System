@@ -3,7 +3,9 @@ package br.com.HEALTHTRACK.API.HEALTHTRACK.Entity;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Pattern;
 import lombok.*;
+
 import java.time.LocalDate;
 
 @Getter
@@ -30,10 +32,11 @@ public class MedicacaoPaciente {
     @JoinColumn(name = "medicacao_id")
     private Medicacao medicacao;
 
-    String codigoExame
-
     @NotBlank
     private String dosagem;
+
+    @Pattern(regexp = "^[\\p{L}0-9 ]+$" , message = "Carácteres especiais não podem ser códigos de exame" )
+    private String codigoExame;
 
     private String viaAdministracao;
 
