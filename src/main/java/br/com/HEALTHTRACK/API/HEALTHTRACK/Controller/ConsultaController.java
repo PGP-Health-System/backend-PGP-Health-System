@@ -15,4 +15,8 @@ public class ConsultaController {
     public ConsultaService getConsultaService() {
         return consultaService;
     }
+
+
+
+
 }
