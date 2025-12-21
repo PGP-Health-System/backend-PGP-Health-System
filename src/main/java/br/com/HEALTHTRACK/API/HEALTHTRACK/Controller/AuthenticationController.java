@@ -2,20 +2,16 @@ package br.com.HEALTHTRACK.API.HEALTHTRACK.Controller;
 
 import br.com.HEALTHTRACK.API.HEALTHTRACK.DTO.UsuarioLoginDTO;
 import br.com.HEALTHTRACK.API.HEALTHTRACK.DTO.UsuarioRegistroDTO;
-<<<<<<< HEAD
-import br.com.HEALTHTRACK.API.HEALTHTRACK.Entity.Usuario;
-import br.com.HEALTHTRACK.API.HEALTHTRACK.Repository.UsuarioRepository;
-import br.com.HEALTHTRACK.API.HEALTHTRACK.Security.TokenService;
 import jakarta.validation.Valid;
-=======
-import br.com.HEALTHTRACK.API.HEALTHTRACK.Exception.HandlerException.Autenticacao.ErroLogin;
-import br.com.HEALTHTRACK.API.HEALTHTRACK.Exception.HandlerException.Autenticacao.ErroRegistro;
 import br.com.HEALTHTRACK.API.HEALTHTRACK.Service.AuthService;
-import jakarta.validation.Valid;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.HttpStatus;
->>>>>>> 4f9b278272dc19dad549f6aec03deed7be94a25e
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -57,11 +53,7 @@ public class AuthenticationController {
     })
     @PostMapping("/login")
     public ResponseEntity<String> login(@RequestBody @Valid UsuarioLoginDTO loginDTO) {
-        try{
-            return ResponseEntity.status(200).body(authService.login(loginDTO));
-        } catch (ErroLogin e){
-            throw new ErroLogin("Usuário ou senha inválidos!");
-        }
+        return ResponseEntity.status(200).body(authService.login(loginDTO));
     }
 
     @Operation(
@@ -93,10 +85,6 @@ public class AuthenticationController {
     })
     @PostMapping("/registrar")
     public ResponseEntity<String> registrar(@RequestBody @Valid UsuarioRegistroDTO registroDTO) {
-        try {
-            return ResponseEntity.status(HttpStatus.CREATED).body(authService.registro(registroDTO));
-        } catch (ErroRegistro e) {
-            throw new ErroRegistro("Falha ao realizar o registro: " + e.getMessage());
-        }
+        return ResponseEntity.status(HttpStatus.CREATED).body(authService.registro(registroDTO));
     }
 }

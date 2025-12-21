@@ -9,11 +9,10 @@ import br.com.HEALTHTRACK.API.HEALTHTRACK.DTO.Paciente.PacienteResumoDTO;
 import br.com.HEALTHTRACK.API.HEALTHTRACK.Entity.Paciente;
 import br.com.HEALTHTRACK.API.HEALTHTRACK.Enum.PacienteEnum.StatusPaciente;
 import br.com.HEALTHTRACK.API.HEALTHTRACK.Exception.HandlerException.Paciente.*;
-import br.com.HEALTHTRACK.API.HEALTHTRACK.Mapper.PacienteMapper;
+import br.com.HEALTHTRACK.API.HEALTHTRACK.Mapper.Paciente.PacienteMapper;
 import br.com.HEALTHTRACK.API.HEALTHTRACK.Repository.PacienteRepository;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.time.LocalDate;
 import java.util.List;
@@ -23,10 +22,10 @@ import java.util.List;
 public class PacienteService {
 
     private final PacienteRepository pacienteRepository;
-    @Autowired
-    private PacienteMapper pacienteMapper;
+    private final PacienteMapper pacienteMapper;
 
-    public PacienteService(PacienteRepository pacienteRepository) {
+    public PacienteService(PacienteRepository pacienteRepository, PacienteMapper pacienteMapper) {
+        this.pacienteMapper = pacienteMapper;
         this.pacienteRepository = pacienteRepository;
     }
 
@@ -50,7 +49,7 @@ public class PacienteService {
         return pacienteMapper.converterPacienteDtoDetalhes(paciente);
     }
 
-    public void atualizarPaciente(Long id, PacienteAtualizacaoDTO dto) {
+    public PacienteDetalhesDTO atualizarPaciente(Long id, PacienteAtualizacaoDTO dto) {
 
         Paciente paciente = buscarPaciente(id);
 
@@ -62,9 +61,11 @@ public class PacienteService {
         if (dto.numeroSus() != null) paciente.setNumeroSus(dto.numeroSus());
 
         pacienteRepository.save(paciente);
+
+        return pacienteMapper.converterPacienteDtoDetalhes(paciente);
     }
 
-    public void desativarPaciente(Long id) {
+    public PacienteDetalhesDTO desativarPaciente(Long id) {
         Paciente paciente = buscarPaciente(id);
 
         if (paciente.getStatusPaciente() != StatusPaciente.ATIVO)
@@ -72,9 +73,11 @@ public class PacienteService {
 
         paciente.setStatusPaciente(StatusPaciente.INATIVO);
         pacienteRepository.save(paciente);
+
+        return pacienteMapper.converterPacienteDtoDetalhes(paciente);
     }
 
-    public void ativarPaciente(Long id) {
+    public PacienteDetalhesDTO ativarPaciente(Long id) {
         Paciente paciente = buscarPaciente(id);
 
         if (paciente.getStatusPaciente() == StatusPaciente.ATIVO)
@@ -82,6 +85,8 @@ public class PacienteService {
 
         paciente.setStatusPaciente(StatusPaciente.ATIVO);
         pacienteRepository.save(paciente);
+
+        return pacienteMapper.converterPacienteDtoDetalhes(paciente);
     }
 
     public PacienteDetalhesDTO buscarDetalhes(Long id) {

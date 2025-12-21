@@ -33,7 +33,6 @@ public class Medicacao {
 
     @Pattern(regexp = "^[\\p{L}0-9 ]+$" , message = "Carácteres especiais não podem ser usadas como" +
             "códigos de medicamento" )
-
     private String codigoMedicamento;
 
     @NotBlank

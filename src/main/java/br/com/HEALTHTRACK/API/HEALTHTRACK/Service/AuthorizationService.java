@@ -1,10 +1,6 @@
 package br.com.HEALTHTRACK.API.HEALTHTRACK.Service;
 
 import br.com.HEALTHTRACK.API.HEALTHTRACK.Repository.UsuarioRepository;
-<<<<<<< HEAD
-import org.springframework.beans.factory.annotation.Autowired;
-=======
->>>>>>> 4f9b278272dc19dad549f6aec03deed7be94a25e
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;

@@ -3,7 +3,9 @@ package br.com.HEALTHTRACK.API.HEALTHTRACK.Service;
 import br.com.HEALTHTRACK.API.HEALTHTRACK.DTO.UsuarioLoginDTO;
 import br.com.HEALTHTRACK.API.HEALTHTRACK.DTO.UsuarioRegistroDTO;
 import br.com.HEALTHTRACK.API.HEALTHTRACK.Entity.Usuario;
-import br.com.HEALTHTRACK.API.HEALTHTRACK.Mapper.UsuarioMapper;
+import br.com.HEALTHTRACK.API.HEALTHTRACK.Exception.HandlerException.Autenticacao.ErroDuploTipoUsuario;
+import br.com.HEALTHTRACK.API.HEALTHTRACK.Exception.HandlerException.Autenticacao.ErroUsuarioExistente;
+import br.com.HEALTHTRACK.API.HEALTHTRACK.Mapper.Usuario.UsuarioMapper;
 import br.com.HEALTHTRACK.API.HEALTHTRACK.Repository.UsuarioRepository;
 import br.com.HEALTHTRACK.API.HEALTHTRACK.Security.TokenService;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -74,12 +76,12 @@ public class AuthService {
     private void validarRegistro(UsuarioRegistroDTO registroDTO) {
 
         if (usuarioRepository.localizarUsuario(registroDTO.username()) != null) {
-            throw new IllegalArgumentException("Usuário já existe!");
+            throw new ErroUsuarioExistente("Usuário já existente em sistema, tente novamente!");
         }
 
         if (registroDTO.profissionalSaude() != null &&
                 registroDTO.paciente() != null) {
-            throw new IllegalArgumentException(
+            throw new ErroDuploTipoUsuario(
                     "Um usuário não pode ser tanto profissional de saúde quanto paciente ao mesmo tempo!"
             );
         }

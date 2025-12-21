@@ -1,7 +1,6 @@
 package br.com.HEALTHTRACK.API.HEALTHTRACK.Service;
 
 import br.com.HEALTHTRACK.API.HEALTHTRACK.DTO.Consulta.ConsultaDTO;
-import br.com.HEALTHTRACK.API.HEALTHTRACK.DTO.Consulta.ConsultaDto;
 import br.com.HEALTHTRACK.API.HEALTHTRACK.Entity.Paciente;
 import br.com.HEALTHTRACK.API.HEALTHTRACK.Repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
