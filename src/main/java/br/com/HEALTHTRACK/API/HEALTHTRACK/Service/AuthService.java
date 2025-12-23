@@ -5,7 +5,7 @@ import br.com.HEALTHTRACK.API.HEALTHTRACK.DTO.UsuarioRegistroDTO;
 import br.com.HEALTHTRACK.API.HEALTHTRACK.Entity.Usuario;
 import br.com.HEALTHTRACK.API.HEALTHTRACK.Exception.HandlerException.Autenticacao.ErroDuploTipoUsuario;
 import br.com.HEALTHTRACK.API.HEALTHTRACK.Exception.HandlerException.Autenticacao.ErroUsuarioExistente;
-import br.com.HEALTHTRACK.API.HEALTHTRACK.Mapper.UsuarioMapper;
+import br.com.HEALTHTRACK.API.HEALTHTRACK.Mapper.Usuario.UsuarioMapper;
 import br.com.HEALTHTRACK.API.HEALTHTRACK.Repository.UsuarioRepository;
 import br.com.HEALTHTRACK.API.HEALTHTRACK.Security.TokenService;
 import org.springframework.security.authentication.AuthenticationManager;
