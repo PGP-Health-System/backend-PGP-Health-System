@@ -5,12 +5,14 @@ import br.com.HEALTHTRACK.API.HEALTHTRACK.DTO.Doenca.DoencaCadastroDTO;
 import br.com.HEALTHTRACK.API.HEALTHTRACK.DTO.Doenca.DoencaDetalhesDTO;
 import br.com.HEALTHTRACK.API.HEALTHTRACK.DTO.Paciente.PacienteDetalhesDTO;
 import br.com.HEALTHTRACK.API.HEALTHTRACK.Entity.Doenca;
+import br.com.HEALTHTRACK.API.HEALTHTRACK.Security.SecurityConfiguration;
 import br.com.HEALTHTRACK.API.HEALTHTRACK.Service.DoencaSerivce;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.apache.coyote.Response;
@@ -21,6 +23,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/doencas")
 @Tag(name = "Controle Doenca", description = "Controller responsavel por manipular e gerenciar as Doencas")
+@SecurityRequirement(name = SecurityConfiguration.SECURITY)
 public class DoencaController {
 
     private final DoencaSerivce doencaSerivce;

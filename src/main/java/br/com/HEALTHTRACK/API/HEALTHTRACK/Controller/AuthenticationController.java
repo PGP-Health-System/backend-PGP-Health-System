@@ -2,6 +2,8 @@ package br.com.HEALTHTRACK.API.HEALTHTRACK.Controller;
 
 import br.com.HEALTHTRACK.API.HEALTHTRACK.DTO.UsuarioLoginDTO;
 import br.com.HEALTHTRACK.API.HEALTHTRACK.DTO.UsuarioRegistroDTO;
+import br.com.HEALTHTRACK.API.HEALTHTRACK.Security.SecurityConfiguration;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.validation.Valid;
 import br.com.HEALTHTRACK.API.HEALTHTRACK.Service.AuthService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -20,6 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/entrar")
 @Tag(name = "Autenticação", description = "Endpoints responsáveis pela autenticação e registro de usuários")
+@SecurityRequirement(name = SecurityConfiguration.SECURITY)
 public class AuthenticationController {
 
     private final AuthService authService;

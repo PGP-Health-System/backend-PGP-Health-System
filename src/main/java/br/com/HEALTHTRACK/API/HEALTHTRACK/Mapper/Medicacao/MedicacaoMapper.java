@@ -7,7 +7,6 @@ import br.com.HEALTHTRACK.API.HEALTHTRACK.Entity.Paciente;
 import br.com.HEALTHTRACK.API.HEALTHTRACK.Entity.Tratamento;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
-import org.mapstruct.MappingConstants;
 import org.mapstruct.ReportingPolicy;
 
 import javax.sound.midi.Track;

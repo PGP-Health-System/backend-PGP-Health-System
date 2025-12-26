@@ -2,12 +2,14 @@ package br.com.HEALTHTRACK.API.HEALTHTRACK.Controller;
 
 import br.com.HEALTHTRACK.API.HEALTHTRACK.DTO.Medicacao.MedicacaoDTO;
 import br.com.HEALTHTRACK.API.HEALTHTRACK.DTO.Medicacao.MedicacaoDetalheDTO;
+import br.com.HEALTHTRACK.API.HEALTHTRACK.Security.SecurityConfiguration;
 import br.com.HEALTHTRACK.API.HEALTHTRACK.Service.MedicacaoService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -22,6 +24,7 @@ import java.util.Map;
 @RestController
 @RequestMapping("/medicacao")
 @Tag(name = "Controle medicação", description = "Controller para manipular e gerenciar entidade de medicação")
+@SecurityRequirement(name = SecurityConfiguration.SECURITY)
 public class MedicacaoController {
 
     @Autowired

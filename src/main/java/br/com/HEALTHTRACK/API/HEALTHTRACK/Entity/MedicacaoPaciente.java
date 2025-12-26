@@ -32,8 +32,6 @@ public class MedicacaoPaciente {
     @JoinColumn(name = "medicacao_id")
     private Medicacao medicacao;
 
-    String codigoExame
-
     @NotBlank
     private String dosagem;
 

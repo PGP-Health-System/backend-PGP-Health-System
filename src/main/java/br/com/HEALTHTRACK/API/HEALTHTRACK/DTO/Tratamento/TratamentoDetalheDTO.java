@@ -9,11 +9,8 @@ import br.com.HEALTHTRACK.API.HEALTHTRACK.Enum.TratamentoEnum.TipoTratamento;
 import java.time.LocalDate;
 import java.util.List;
 
-public record TratamentoDTO(
+public record TratamentoDetalheDTO(
         String nome,
-        String codigoMedicamento,
-        String codigoCid,
-        String email,
         String descricao,
         TipoTratamento tipo,
         LocalDate dataInicio,

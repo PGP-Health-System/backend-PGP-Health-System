@@ -7,11 +7,10 @@ import br.com.HEALTHTRACK.API.HEALTHTRACK.Entity.Doenca;
 import br.com.HEALTHTRACK.API.HEALTHTRACK.Exception.HandlerException.Doenca.CodigoCidDuplicado;
 import br.com.HEALTHTRACK.API.HEALTHTRACK.Exception.HandlerException.Doenca.CodigoCidNaoLocalizado;
 import br.com.HEALTHTRACK.API.HEALTHTRACK.Exception.HandlerException.Doenca.NomeDoencaDuplicada;
-import br.com.HEALTHTRACK.API.HEALTHTRACK.Mapper.DoencaMapper;
+import br.com.HEALTHTRACK.API.HEALTHTRACK.Mapper.Doenca.DoencaMapper;
 import br.com.HEALTHTRACK.API.HEALTHTRACK.Repository.DoencaRepository;
 import org.springframework.stereotype.Service;
 
-import java.util.Collections;
 import java.util.List;
 
 @Service

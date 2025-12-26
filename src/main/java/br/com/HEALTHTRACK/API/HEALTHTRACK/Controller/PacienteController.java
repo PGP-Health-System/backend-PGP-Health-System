@@ -5,12 +5,14 @@ import br.com.HEALTHTRACK.API.HEALTHTRACK.DTO.Paciente.PacienteCadastroDTO;
 import br.com.HEALTHTRACK.API.HEALTHTRACK.DTO.Paciente.PacienteDetalhesDTO;
 import br.com.HEALTHTRACK.API.HEALTHTRACK.DTO.Paciente.PacienteResumoDTO;
 import br.com.HEALTHTRACK.API.HEALTHTRACK.Exception.HandlerException.Paciente.*;
+import br.com.HEALTHTRACK.API.HEALTHTRACK.Security.SecurityConfiguration;
 import br.com.HEALTHTRACK.API.HEALTHTRACK.Service.PacienteService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +24,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/paciente")
 @Tag(name = "Controle Paciente", description = "Controller responsavel por manipular e gerenciar o Paciente")
+@SecurityRequirement(name = SecurityConfiguration.SECURITY)
 public class PacienteController {
 
     private final PacienteService pacienteService;
