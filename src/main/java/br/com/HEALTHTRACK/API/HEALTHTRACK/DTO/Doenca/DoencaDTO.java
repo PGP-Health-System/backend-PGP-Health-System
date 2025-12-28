@@ -6,7 +6,6 @@ import java.time.LocalDate;
 
 public record DoencaDTO(
         String nomeDoenca,
-        EstagioDoenca estagio,
         String codigoCid,
         LocalDate dataDiagnostico
 ) {

@@ -54,6 +54,10 @@ public class ProfissionalSaude {
     @OneToMany(mappedBy = "profissionalSaude")
     private List<Paciente> pacientes;
 
+    @NotBlank
+    @Column(unique = true)
+    private String cpf;
+
     @Override
     public String toString() {
         return nome + " (" + especialidade + ")";
