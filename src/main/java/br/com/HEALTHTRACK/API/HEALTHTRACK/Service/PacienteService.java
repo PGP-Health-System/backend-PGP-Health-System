@@ -7,10 +7,13 @@ import br.com.HEALTHTRACK.API.HEALTHTRACK.DTO.Paciente.PacienteCadastroDTO;
 import br.com.HEALTHTRACK.API.HEALTHTRACK.DTO.Paciente.PacienteDetalhesDTO;
 import br.com.HEALTHTRACK.API.HEALTHTRACK.DTO.Paciente.PacienteResumoDTO;
 import br.com.HEALTHTRACK.API.HEALTHTRACK.Entity.Paciente;
+import br.com.HEALTHTRACK.API.HEALTHTRACK.Entity.ProfissionalSaude;
 import br.com.HEALTHTRACK.API.HEALTHTRACK.Enum.PacienteEnum.StatusPaciente;
 import br.com.HEALTHTRACK.API.HEALTHTRACK.Exception.HandlerException.Paciente.*;
+import br.com.HEALTHTRACK.API.HEALTHTRACK.Exception.HandlerException.Profissional.EmailNaoEncontrado;
 import br.com.HEALTHTRACK.API.HEALTHTRACK.Mapper.Paciente.PacienteMapper;
 import br.com.HEALTHTRACK.API.HEALTHTRACK.Repository.PacienteRepository;
+import br.com.HEALTHTRACK.API.HEALTHTRACK.Repository.ProfissionalSaudeRepository;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import org.springframework.stereotype.Service;
@@ -23,10 +26,12 @@ public class PacienteService {
 
     private final PacienteRepository pacienteRepository;
     private final PacienteMapper pacienteMapper;
+    private final ProfissionalSaudeRepository profissionalSaudeRepository;
 
-    public PacienteService(PacienteRepository pacienteRepository, PacienteMapper pacienteMapper) {
+    public PacienteService(PacienteRepository pacienteRepository, PacienteMapper pacienteMapper, ProfissionalSaudeRepository profissionalSaudeRepository) {
         this.pacienteMapper = pacienteMapper;
         this.pacienteRepository = pacienteRepository;
+        this.profissionalSaudeRepository = profissionalSaudeRepository;
     }
 
     public PacienteDetalhesDTO cadastrarPaciente(@Valid PacienteCadastroDTO dto) {

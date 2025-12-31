@@ -5,6 +5,7 @@ import br.com.HEALTHTRACK.API.HEALTHTRACK.Enum.PacienteEnum.EstadoCivil;
 import br.com.HEALTHTRACK.API.HEALTHTRACK.Enum.PacienteEnum.Sexo;
 import br.com.HEALTHTRACK.API.HEALTHTRACK.Enum.PacienteEnum.StatusPaciente;
 import br.com.HEALTHTRACK.API.HEALTHTRACK.Enum.PacienteEnum.TipoSanguinio;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.*;
@@ -53,6 +54,7 @@ public class Paciente {
     private List<DoencaPaciente> doencas;
     @ManyToOne
     @Valid
+    @JsonIgnoreProperties("pacientes")
     private ProfissionalSaude profissionalSaude;
     @Column(unique = true)
     @NotNull
