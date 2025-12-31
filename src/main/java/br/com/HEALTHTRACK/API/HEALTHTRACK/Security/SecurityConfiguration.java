@@ -33,7 +33,7 @@ public class SecurityConfiguration {
                 .csrf(csrf -> csrf.disable())
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(authorize -> authorize
-                .requestMatchers("/entrar/**", "/swagger-ui.html",  "/swagger-ui/**", "/v3/api-docs/**").permitAll()
+                .requestMatchers("/entrar/**", "/swagger-ui.html",  "/swagger-ui/**", "/v3/api-docs/**", "/paciente/**").permitAll()
                 .anyRequest().authenticated()
                 )
                 .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class)
