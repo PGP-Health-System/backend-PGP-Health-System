@@ -6,6 +6,7 @@ import br.com.HEALTHTRACK.API.HEALTHTRACK.Enum.UsuarioEnum.Role;
 
 public record UsuarioRegistroDTO(
         String username,
+        String email,
         String senha,
         Role role,
         ProfissionalSaude profissionalSaude,

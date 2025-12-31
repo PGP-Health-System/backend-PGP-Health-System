@@ -6,3 +6,4 @@ public enum Role {
     ENFERMEIRO,
     PACIENTE
 }
+git

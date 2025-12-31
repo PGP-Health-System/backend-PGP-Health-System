@@ -20,7 +20,7 @@ import java.util.List;
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Entity
 @Table(name = "doenca_paciente")
-public class DoencaPaciente {
+public class    DoencaPaciente {
 
     // Esta entidade sera responsavel por vincular as doencas aos pacientes, permitindo um relacionamento muitos-para-muitos
     // Alem disso, podera conter informacoes adicionais sobre a doenca no contexto do paciente
