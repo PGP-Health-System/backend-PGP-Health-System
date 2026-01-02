@@ -1,6 +1,5 @@
 package br.com.HEALTHTRACK.API.HEALTHTRACK.Entity;
 
-import br.com.HEALTHTRACK.API.HEALTHTRACK.Enum.AlergiaEnum.HistoricoFamiliar;
 import br.com.HEALTHTRACK.API.HEALTHTRACK.Enum.DoencaEnum.EstagioDoenca;
 import br.com.HEALTHTRACK.API.HEALTHTRACK.Enum.DoencaEnum.Gravidade;
 import br.com.HEALTHTRACK.API.HEALTHTRACK.Enum.DoencaEnum.StatusDoenca;
@@ -11,6 +10,7 @@ import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Getter
@@ -42,9 +42,9 @@ public class    DoencaPaciente {
     @NotNull
     private StatusDoenca status;
 
-    private LocalDate dataDiagnostico;
-    private LocalDate dataInicioSintomas;
-    private LocalDate dataUltimaAtualizacao;
+    private LocalDateTime dataDiagnostico;
+    private LocalDateTime dataInicioSintomas;
+    private LocalDateTime dataUltimaAtualizacao;
 
     @OneToMany
     @NotNull
@@ -63,7 +63,7 @@ public class    DoencaPaciente {
     private List<Alergia> alergias;
 
     @NotNull
-
+    @OneToMany
     private List<HistoricoFamiliar> historicoFamiliar;
 
     @Column(length = 2000)
@@ -76,4 +76,10 @@ public class    DoencaPaciente {
 
     @NotNull
     private EstagioDoenca estagio;
+
+    @ManyToOne
+    @NotNull
+    private Doenca doenca;
+
+    private boolean ativo = true;
 }
