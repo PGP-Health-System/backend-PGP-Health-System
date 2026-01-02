@@ -52,16 +52,20 @@ public class Paciente {
     @OneToMany(mappedBy = "paciente", cascade = CascadeType.ALL)
     @Valid
     private List<DoencaPaciente> doencas;
+
     @ManyToOne
     @Valid
+    @JoinColumn(name = "profissional_saude_id")
     @JsonIgnoreProperties("pacientes")
     private ProfissionalSaude profissionalSaude;
+
     @Column(unique = true)
     @NotNull
     @Valid
     @Pattern(regexp = "\\d{11}", message = "O CPF deve conter 11 digitos!")
     private String cpf;
-    @FutureOrPresent(message = "A data de cadastro precisa ser atual, ou futura!")
+
+    @Column(nullable = false, updatable = false)
     private LocalDate dataCadastro;
     @NotNull
     @Enumerated(EnumType.STRING)

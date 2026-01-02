@@ -1,7 +1,9 @@
 package br.com.HEALTHTRACK.API.HEALTHTRACK.Repository;
 
+import br.com.HEALTHTRACK.API.HEALTHTRACK.Entity.Paciente;
 import br.com.HEALTHTRACK.API.HEALTHTRACK.Entity.ProfissionalSaude;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
@@ -12,4 +14,6 @@ public interface ProfissionalSaudeRepository extends JpaRepository<ProfissionalS
     Optional<ProfissionalSaude> findByEmail(String email);
 
     boolean existsByEmail(String email);
+
+
 }

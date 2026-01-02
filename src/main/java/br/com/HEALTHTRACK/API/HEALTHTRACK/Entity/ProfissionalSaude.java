@@ -29,8 +29,8 @@ public class ProfissionalSaude {
     @NotBlank
     private String nome;
 
+    @ElementCollection
     @Enumerated(EnumType.STRING)
-    @NotNull
     private List<Especialidade> especialidade;
 
     @Enumerated(EnumType.STRING)
