@@ -1,11 +1,12 @@
 package br.com.HEALTHTRACK.API.HEALTHTRACK.DTO.DoencaPaciente;
 
 import br.com.HEALTHTRACK.API.HEALTHTRACK.DTO.Alergia.AlergiaDTO;
+import br.com.HEALTHTRACK.API.HEALTHTRACK.DTO.Doenca.DoencaDTO;
 import br.com.HEALTHTRACK.API.HEALTHTRACK.DTO.HistoricoFamiliar.HistoricoFamiliarDTO;
 import br.com.HEALTHTRACK.API.HEALTHTRACK.DTO.Medicacao.MedicacaoDTO;
-import br.com.HEALTHTRACK.API.HEALTHTRACK.DTO.Paciente.PacienteDTO;
 import br.com.HEALTHTRACK.API.HEALTHTRACK.DTO.Sintoma.SintomaDTO;
 import br.com.HEALTHTRACK.API.HEALTHTRACK.DTO.Tratamento.TratamentoDTO;
+import br.com.HEALTHTRACK.API.HEALTHTRACK.Entity.HistoricoFamiliar;
 import br.com.HEALTHTRACK.API.HEALTHTRACK.Enum.DoencaEnum.EstagioDoenca;
 import br.com.HEALTHTRACK.API.HEALTHTRACK.Enum.DoencaEnum.Gravidade;
 import br.com.HEALTHTRACK.API.HEALTHTRACK.Enum.DoencaEnum.StatusDoenca;
@@ -22,8 +23,8 @@ public record AtualizarDoencaPaciente(
         List<SintomaDTO> sintomas,
         List<MedicacaoDTO> medicacoes,
         List<AlergiaDTO> alergias,
-        List<HistoricoFamiliarDTO> historicoFamiliar,
+        List<HistoricoFamiliar> historicoFamiliar,
         String observacaoMedica,
-        EstagioDoenca estagio
+        DoencaDTO doenca
 ) {
 }

@@ -7,6 +7,7 @@ import br.com.HEALTHTRACK.API.HEALTHTRACK.Entity.Doenca;
 import br.com.HEALTHTRACK.API.HEALTHTRACK.Exception.HandlerException.Doenca.CodigoCidDuplicado;
 import br.com.HEALTHTRACK.API.HEALTHTRACK.Exception.HandlerException.Doenca.CodigoCidNaoLocalizado;
 import br.com.HEALTHTRACK.API.HEALTHTRACK.Exception.HandlerException.Doenca.NomeDoencaDuplicada;
+import br.com.HEALTHTRACK.API.HEALTHTRACK.Exception.HandlerException.Doenca.NomeDoencaNaoLocalizado;
 import br.com.HEALTHTRACK.API.HEALTHTRACK.Mapper.Doenca.DoencaMapper;
 import br.com.HEALTHTRACK.API.HEALTHTRACK.Repository.DoencaRepository;
 import org.springframework.stereotype.Service;
@@ -70,5 +71,13 @@ public class DoencaService {
                 .stream()
                 .map(doencaMapper::toDetalhesDTO)
                 .toList();
+    }
+
+    public Doenca buscarPorNome(String nomeDoenca) {
+        Doenca doenca = doencaRepository.findByNomeDoenca(nomeDoenca);
+        if (doenca == null) {
+            throw new NomeDoencaNaoLocalizado("Doença não encontrada pelo nome informado.");
+        }
+        return doenca;
     }
 }
