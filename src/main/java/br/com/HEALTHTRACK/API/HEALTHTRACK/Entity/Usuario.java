@@ -2,6 +2,7 @@ package br.com.HEALTHTRACK.API.HEALTHTRACK.Entity;
 
 import br.com.HEALTHTRACK.API.HEALTHTRACK.Enum.UsuarioEnum.Role;
 import jakarta.persistence.*;
+import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
@@ -28,6 +29,9 @@ public class Usuario implements UserDetails {
     @Column(unique = true, nullable = false)
     @NotBlank
     private String username;
+
+    @NotBlank
+    private String email;
 
     @NotBlank
     private String senha;

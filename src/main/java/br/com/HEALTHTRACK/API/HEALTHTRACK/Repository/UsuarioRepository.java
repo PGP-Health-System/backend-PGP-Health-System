@@ -15,4 +15,5 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Long> {
     @Query("SELECT u FROM Usuario u WHERE u.username = :login")
     UserDetails localizarUsuario(@Param("login") String login);
 
+    boolean existsByEmail(String email);
 }

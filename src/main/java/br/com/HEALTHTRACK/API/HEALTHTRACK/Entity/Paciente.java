@@ -5,6 +5,7 @@ import br.com.HEALTHTRACK.API.HEALTHTRACK.Enum.PacienteEnum.EstadoCivil;
 import br.com.HEALTHTRACK.API.HEALTHTRACK.Enum.PacienteEnum.Sexo;
 import br.com.HEALTHTRACK.API.HEALTHTRACK.Enum.PacienteEnum.StatusPaciente;
 import br.com.HEALTHTRACK.API.HEALTHTRACK.Enum.PacienteEnum.TipoSanguinio;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.*;
@@ -51,15 +52,20 @@ public class Paciente {
     @OneToMany(mappedBy = "paciente", cascade = CascadeType.ALL)
     @Valid
     private List<DoencaPaciente> doencas;
+
     @ManyToOne
     @Valid
+    @JoinColumn(name = "profissional_saude_id")
+    @JsonIgnoreProperties("pacientes")
     private ProfissionalSaude profissionalSaude;
+
     @Column(unique = true)
     @NotNull
     @Valid
     @Pattern(regexp = "\\d{11}", message = "O CPF deve conter 11 digitos!")
     private String cpf;
-    @FutureOrPresent(message = "A data de cadastro precisa ser atual, ou futura!")
+
+    @Column(nullable = false, updatable = false)
     private LocalDate dataCadastro;
     @NotNull
     @Enumerated(EnumType.STRING)
