@@ -25,4 +25,12 @@ public interface PacienteRepository extends JpaRepository<Paciente, Long> {
     boolean existsByEmail(@NotBlank String email);
 
     List<Paciente> findByCpfIn(List<String> cpf);
+
+    @Query("""
+                SELECT p
+                FROM Paciente p
+                JOIN p.profissionalSaude ps
+                WHERE ps.nome = :nome
+            """)
+    List<Paciente> getByName(@Param("nome") String nome);
 }
