@@ -6,6 +6,7 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Pattern;
 import lombok.*;
 
 import java.time.LocalDate;
@@ -54,8 +55,8 @@ public class ProfissionalSaude {
     @OneToMany(mappedBy = "profissionalSaude")
     private List<Paciente> pacientes;
 
-    @NotBlank
     @Column(unique = true)
+    @Pattern(regexp = "\\d{11}", message = "CPF deve ter 11 dígitos")
     private String cpf;
 
     @Override

@@ -1,6 +1,7 @@
 package br.com.HEALTHTRACK.API.HEALTHTRACK.Repository;
 
 import br.com.HEALTHTRACK.API.HEALTHTRACK.Entity.Paciente;
+import br.com.HEALTHTRACK.API.HEALTHTRACK.Entity.ProfissionalSaude;
 import jakarta.validation.constraints.Negative;
 import jakarta.validation.constraints.NotBlank;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -33,4 +34,6 @@ public interface PacienteRepository extends JpaRepository<Paciente, Long> {
                 WHERE ps.nome = :nome
             """)
     List<Paciente> getByName(@Param("nome") String nome);
+
+    List<Paciente> findByProfissionalSaudeId(Long profissionalSaude);
 }

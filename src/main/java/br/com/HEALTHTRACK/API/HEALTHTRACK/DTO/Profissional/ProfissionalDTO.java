@@ -13,6 +13,7 @@ public record ProfissionalDTO(
         TipoRegistroProfissional tipoRegistro,
         String registroProfissional,
         String email,
-        String telefone
+        String telefone,
+        String cpf
 ) {
 }

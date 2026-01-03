@@ -82,5 +82,18 @@ public class ProfissionalSaudeService {
       return pacienteRepository.getByName(nome);
     }
 
+    public void deletarPaciente(String nome, String email){
+
+        ProfissionalSaude profissionalSaude = profissionalSaudeRepository.findByEmail(email)
+                .orElseThrow(() -> new EmailNaoEncontrado("Profissional não encontrado pelo email"));
+
+        List<Paciente> pacientes = pacienteRepository.findByProfissionalSaudeId(profissionalSaude.getId());
+        pacientes.stream()
+                .filter(p -> p.getNome().equals(nome))
+                .forEach(p -> p.setProfissionalSaude(null));
+
+        pacienteRepository.saveAll(pacientes);
+    }
+
 
 }

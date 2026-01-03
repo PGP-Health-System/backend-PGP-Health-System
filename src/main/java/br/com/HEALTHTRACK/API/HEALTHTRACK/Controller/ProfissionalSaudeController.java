@@ -45,4 +45,10 @@ public class ProfissionalSaudeController {
         );
     }
 
+    @DeleteMapping("/remover-pacientes")
+    public ResponseEntity<String> removerPacientes(@RequestParam String nome, @RequestParam String email){
+        profissionalSaudeService.deletarPaciente(nome, email);
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).body("Paciente removido com sucesso.");
+    }
+
 }
