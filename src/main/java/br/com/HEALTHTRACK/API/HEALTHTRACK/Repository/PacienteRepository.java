@@ -33,4 +33,6 @@ public interface PacienteRepository extends JpaRepository<Paciente, Long> {
                 WHERE ps.nome = :nome
             """)
     List<Paciente> getByName(@Param("nome") String nome);
+
+    void deleteByNome(String nome);
 }

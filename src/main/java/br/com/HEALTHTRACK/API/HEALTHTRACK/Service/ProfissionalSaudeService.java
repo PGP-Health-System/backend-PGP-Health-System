@@ -80,5 +80,10 @@ public class ProfissionalSaudeService {
       return pacienteRepository.getByName(nome);
     }
 
+    public void deletarPaciente(String nome){
+        List<Paciente> pacientes = pacienteRepository.getByName(nome);
+        pacientes.removeIf(p -> p.getNome().equals(nome));
+    }
+
 
 }
