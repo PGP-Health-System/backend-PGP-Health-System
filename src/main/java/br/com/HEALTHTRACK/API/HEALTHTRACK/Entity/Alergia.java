@@ -40,17 +40,6 @@ public class Alergia {
     @NotNull
     private GravidadeAlergia gravidade;
 
-    @NotNull
-    private LocalDate dataIdentificacao;
-
-    @ManyToOne
-    @JoinColumn(name = "paciente_id")
-    private Paciente paciente;
-
-    @ManyToOne
-    @JoinColumn(name = "profissional_saude_id")
-    private ProfissionalSaude profissionalSaude;
-
     private boolean ativo = true;
 
     @Override

@@ -15,6 +15,7 @@ public interface DoencaRepository extends JpaRepository<Doenca, Long> {
 
     <T> T findByCodigoCid(String codigoCid, Class<T> type);
 
-    DoencaCadastroDTO findByNomeDoenca(String nomeDoenca);
+    <T> T findByNomeDoenca(String nomeDoenca);
+
 
 }

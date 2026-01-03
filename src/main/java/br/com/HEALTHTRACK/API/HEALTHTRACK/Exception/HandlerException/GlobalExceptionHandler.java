@@ -1,11 +1,13 @@
 package br.com.HEALTHTRACK.API.HEALTHTRACK.Exception.HandlerException;
 
+import br.com.HEALTHTRACK.API.HEALTHTRACK.Exception.HandlerException.Alergia.AlergiaDuplicada;
+import br.com.HEALTHTRACK.API.HEALTHTRACK.Exception.HandlerException.Alergia.AlergiaNaoLocalizada;
 import br.com.HEALTHTRACK.API.HEALTHTRACK.Exception.HandlerException.Autenticacao.ErroDuploTipoUsuario;
 import br.com.HEALTHTRACK.API.HEALTHTRACK.Exception.HandlerException.Autenticacao.ErroUsuarioExistente;
-import br.com.HEALTHTRACK.API.HEALTHTRACK.Exception.HandlerException.Doenca.CodigoCidDuplicado;
-import br.com.HEALTHTRACK.API.HEALTHTRACK.Exception.HandlerException.Doenca.CodigoCidNaoLocalizado;
-import br.com.HEALTHTRACK.API.HEALTHTRACK.Exception.HandlerException.Doenca.NomeDoencaDuplicada;
+import br.com.HEALTHTRACK.API.HEALTHTRACK.Exception.HandlerException.Doenca.*;
+import br.com.HEALTHTRACK.API.HEALTHTRACK.Exception.HandlerException.Medicamento.MedicamentoNaoLocalizado;
 import br.com.HEALTHTRACK.API.HEALTHTRACK.Exception.HandlerException.Paciente.*;
+import br.com.HEALTHTRACK.API.HEALTHTRACK.Exception.HandlerException.Sintoma.SintomaNaoLocalizado;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -148,6 +150,48 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(NomeDoencaDuplicada.class)
     public ResponseEntity<?> handleNomeDoencaDuplicada(NomeDoencaDuplicada ex){
+        return ResponseEntity
+                .status(HttpStatus.CONFLICT)
+                .body(Map.of("erro", ex.getMessage()));
+    }
+
+    @ExceptionHandler(NomeDoencaNaoLocalizado.class)
+    public ResponseEntity<?> handleNomeDoencaNaoLocalizado(NomeDoencaNaoLocalizado ex){
+        return ResponseEntity
+                .status(HttpStatus.NOT_FOUND)
+                .body(Map.of("erro", ex.getMessage()));
+    }
+
+    @ExceptionHandler(DoencaDuplicada.class)
+    public ResponseEntity<?> handleDoencaDuplicada(DoencaDuplicada ex){
+        return ResponseEntity
+                .status(HttpStatus.CONFLICT)
+                .body(Map.of("erro", ex.getMessage()));
+    }
+
+    @ExceptionHandler(MedicamentoNaoLocalizado.class)
+    public ResponseEntity<?> handleMedicamentoNaoLocalizado(MedicamentoNaoLocalizado ex){
+        return ResponseEntity
+                .status(HttpStatus.NOT_FOUND)
+                .body(Map.of("erro", ex.getMessage()));
+    }
+
+    @ExceptionHandler(SintomaNaoLocalizado.class)
+    public ResponseEntity<?> handleSintomaNaoLocalizado(SintomaNaoLocalizado ex){
+        return ResponseEntity
+                .status(HttpStatus.NOT_FOUND)
+                .body(Map.of("erro", ex.getMessage()));
+    }
+
+    @ExceptionHandler(AlergiaNaoLocalizada.class)
+    public ResponseEntity<?> handleAlergiaNaoLocalizada(AlergiaNaoLocalizada ex){
+        return ResponseEntity
+                .status(HttpStatus.NOT_FOUND)
+                .body(Map.of("erro", ex.getMessage()));
+    }
+
+    @ExceptionHandler(AlergiaDuplicada.class)
+    public ResponseEntity<?> handleAlergiaDuplicada(AlergiaDuplicada ex){
         return ResponseEntity
                 .status(HttpStatus.CONFLICT)
                 .body(Map.of("erro", ex.getMessage()));

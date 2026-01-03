@@ -2,10 +2,21 @@ package br.com.HEALTHTRACK.API.HEALTHTRACK.Entity;
 
 import br.com.HEALTHTRACK.API.HEALTHTRACK.Enum.HistoricoFamiliarEnum.Parentesco;
 import jakarta.persistence.*;
+import lombok.*;
 
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
+@EqualsAndHashCode(of = "id")
 @Entity
 @Table(name = "historico_familiar")
 public class HistoricoFamiliar {
+
+    public HistoricoFamiliar(String condicao, String observacao){
+        this.condicao = condicao;
+        this.observacao = observacao;
+    }
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
