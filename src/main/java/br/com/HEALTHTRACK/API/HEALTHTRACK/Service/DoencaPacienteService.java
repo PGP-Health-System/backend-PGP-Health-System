@@ -17,7 +17,6 @@ import br.com.HEALTHTRACK.API.HEALTHTRACK.Exception.HandlerException.Sintoma.Sin
 import br.com.HEALTHTRACK.API.HEALTHTRACK.Exception.HandlerException.Tratamento.TratamentoNaoLocalizado;
 import br.com.HEALTHTRACK.API.HEALTHTRACK.Mapper.Alergia.AlergiaMapper;
 import br.com.HEALTHTRACK.API.HEALTHTRACK.Mapper.DoencaPaciente.DoencaPacienteMapper;
-import br.com.HEALTHTRACK.API.HEALTHTRACK.Mapper.HistoricoFamiliar.HistoricoFamiliarMapper;
 import br.com.HEALTHTRACK.API.HEALTHTRACK.Mapper.Medicacao.MedicacaoMapper;
 import br.com.HEALTHTRACK.API.HEALTHTRACK.Mapper.Sintoma.SintomaMapper;
 import br.com.HEALTHTRACK.API.HEALTHTRACK.Mapper.Tratamento.TratamentoMapper;
@@ -42,11 +41,11 @@ public class DoencaPacienteService{
     private final TratamentoMapper tratamentoMapper;
     private final SintomaMapper sintomaMapper;
     private final AlergiaMapper alergiaMapper;
-    private final DoencaSerivce doencaService;
+    private final DoencaService doencaService;
 
     public DoencaPacienteService(DoencaRepository doencaRepository, DoencaPacienteMapper doencaPacienteMapper, PacienteRepository pacienteRepository,
                                  DoencaPacienteRepository doencaPacienteRepository, MedicacaoMapper medicacaoMapper, TratamentoMapper tratamentoMapper,
-                                 SintomaMapper sintomaMapper, AlergiaMapper alergiaMapper, DoencaSerivce doencaService) {
+                                 SintomaMapper sintomaMapper, AlergiaMapper alergiaMapper, DoencaService doencaService) {
         this.doencaRepository = doencaRepository;
         this.pacienteRepository = pacienteRepository;
         this.doencaPacienteMapper = doencaPacienteMapper;
@@ -201,7 +200,7 @@ public class DoencaPacienteService{
 
     private void validarDoencaExistente(String nomeDoenca) {
         Optional<Doenca> doencaLocalizada = doencaRepository.findByNomeDoenca(nomeDoenca);
-        if(doencaLocalizada == null){
+        if(doencaLocalizada.isEmpty()){
             throw new NomeDoencaNaoLocalizado(
                     "Doença informada não existe no sistema."
             );

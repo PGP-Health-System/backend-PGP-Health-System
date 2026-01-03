@@ -2,8 +2,11 @@ package br.com.HEALTHTRACK.API.HEALTHTRACK.Mapper.Tratamento;
 
 import br.com.HEALTHTRACK.API.HEALTHTRACK.DTO.Tratamento.TratamentoDTO;
 import br.com.HEALTHTRACK.API.HEALTHTRACK.DTO.Tratamento.TratamentoDetalheDTO;
+import br.com.HEALTHTRACK.API.HEALTHTRACK.Entity.DoencaPaciente;
+import br.com.HEALTHTRACK.API.HEALTHTRACK.Entity.Paciente;
 import br.com.HEALTHTRACK.API.HEALTHTRACK.Entity.Tratamento;
 import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 
 @Mapper(componentModel = "Spring")
 public interface TratamentoMapper {
@@ -12,4 +15,11 @@ public interface TratamentoMapper {
 
     TratamentoDetalheDTO converteEntidadeParaDetalhe(Tratamento tratamento);
 
+    @Mapping(target = "id", ignore = true)
+    @Mapping(target = "nome", ignore = true)
+    @Mapping(target = "status", ignore = true)
+    @Mapping(target = "doenca", ignore = true)
+    @Mapping(target = "profissionalSaude", ignore = true)
+    @Mapping(target = "medicacoes", ignore = true)
+    Tratamento toEntity(TratamentoDTO tratamentoDTO, Paciente paciente, DoencaPaciente doencaPaciente);
 }
