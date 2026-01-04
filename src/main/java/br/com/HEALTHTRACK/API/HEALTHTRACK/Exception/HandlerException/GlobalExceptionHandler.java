@@ -8,6 +8,9 @@ import br.com.HEALTHTRACK.API.HEALTHTRACK.Exception.HandlerException.Autenticaca
 import br.com.HEALTHTRACK.API.HEALTHTRACK.Exception.HandlerException.Doenca.*;
 import br.com.HEALTHTRACK.API.HEALTHTRACK.Exception.HandlerException.Medicamento.MedicamentoNaoLocalizado;
 import br.com.HEALTHTRACK.API.HEALTHTRACK.Exception.HandlerException.Paciente.*;
+import br.com.HEALTHTRACK.API.HEALTHTRACK.Exception.HandlerException.SinalVital.SinalViltalNaoLocalizado;
+import br.com.HEALTHTRACK.API.HEALTHTRACK.Exception.HandlerException.SinalVital.SinalVitalInvalido;
+import br.com.HEALTHTRACK.API.HEALTHTRACK.Exception.HandlerException.SinalVital.SinalVitalNegativo;
 import br.com.HEALTHTRACK.API.HEALTHTRACK.Exception.HandlerException.Sintoma.SintomaNaoLocalizado;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -202,6 +205,27 @@ public class GlobalExceptionHandler {
     public ResponseEntity<?> handleAlertaSaudeNaoLocalizado(AlertaSaudeNaoLocalizado ex){
         return ResponseEntity
                 .status(HttpStatus.NOT_FOUND)
+                .body(Map.of("erro", ex.getMessage()));
+    }
+
+    @ExceptionHandler(SinalViltalNaoLocalizado.class)
+    public ResponseEntity<?> handleSinalVitalNaoLocalizado(SinalViltalNaoLocalizado ex){
+        return ResponseEntity
+                .status(HttpStatus.NOT_FOUND)
+                .body(Map.of("erro", ex.getMessage()));
+    }
+
+    @ExceptionHandler(SinalVitalNegativo.class)
+    public ResponseEntity<?> handleSinalVitalNegativo(SinalVitalNegativo ex){
+        return ResponseEntity
+                .status(HttpStatus.BAD_REQUEST)
+                .body(Map.of("erro", ex.getMessage()));
+    }
+
+    @ExceptionHandler(SinalVitalInvalido.class)
+    public ResponseEntity<?> handleSinalVitalInvalido(SinalVitalInvalido ex){
+        return ResponseEntity
+                .status(HttpStatus.BAD_REQUEST)
                 .body(Map.of("erro", ex.getMessage()));
     }
 }
