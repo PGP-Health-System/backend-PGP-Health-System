@@ -2,6 +2,7 @@ package br.com.HEALTHTRACK.API.HEALTHTRACK.Exception.HandlerException;
 
 import br.com.HEALTHTRACK.API.HEALTHTRACK.Exception.HandlerException.Alergia.AlergiaDuplicada;
 import br.com.HEALTHTRACK.API.HEALTHTRACK.Exception.HandlerException.Alergia.AlergiaNaoLocalizada;
+import br.com.HEALTHTRACK.API.HEALTHTRACK.Exception.HandlerException.AlertaSaude.AlertaSaudeNaoLocalizado;
 import br.com.HEALTHTRACK.API.HEALTHTRACK.Exception.HandlerException.Autenticacao.ErroDuploTipoUsuario;
 import br.com.HEALTHTRACK.API.HEALTHTRACK.Exception.HandlerException.Autenticacao.ErroUsuarioExistente;
 import br.com.HEALTHTRACK.API.HEALTHTRACK.Exception.HandlerException.Doenca.*;
@@ -194,6 +195,13 @@ public class GlobalExceptionHandler {
     public ResponseEntity<?> handleAlergiaDuplicada(AlergiaDuplicada ex){
         return ResponseEntity
                 .status(HttpStatus.CONFLICT)
+                .body(Map.of("erro", ex.getMessage()));
+    }
+
+    @ExceptionHandler(AlertaSaudeNaoLocalizado.class)
+    public ResponseEntity<?> handleAlertaSaudeNaoLocalizado(AlertaSaudeNaoLocalizado ex){
+        return ResponseEntity
+                .status(HttpStatus.NOT_FOUND)
                 .body(Map.of("erro", ex.getMessage()));
     }
 }
