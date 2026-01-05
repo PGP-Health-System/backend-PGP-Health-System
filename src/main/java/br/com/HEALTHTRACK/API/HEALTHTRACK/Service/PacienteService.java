@@ -42,11 +42,7 @@ public class PacienteService {
         if (pacienteRepository.existsByEmail(dto.email()))
             throw new EmailDuplicado("Email já cadastrado");
 
-        if (dto.dataNascimento().isAfter(LocalDate.now()))
-            throw new DataNascimentoInvalida("Data de nascimento futura");
-
         Paciente paciente = pacienteMapper.convertePacienteEntidadeCadastro(dto);
-        paciente.setStatusPaciente(StatusPaciente.ATIVO);
         paciente.setDataCadastro(LocalDate.now());
 
         pacienteRepository.save(paciente);
@@ -104,6 +100,23 @@ public class PacienteService {
                 .map(pacienteMapper::converterPacienteResumoDto)
                 .toList();
     }
+
+    public List<PacienteResumoDTO> listarTodosAtivos(){
+        return pacienteRepository.findAll()
+                .stream()
+                .filter(paciente -> paciente.getStatusPaciente() == StatusPaciente.ATIVO)
+                .map(pacienteMapper::converterPacienteResumoDto)
+                .toList();
+    }
+
+    public List<PacienteResumoDTO> listarTodosInativos(){
+        return pacienteRepository.findAll()
+                .stream()
+                .filter(paciente -> paciente.getStatusPaciente() == StatusPaciente.INATIVO)
+                .map(pacienteMapper::converterPacienteResumoDto)
+                .toList();
+    }
+
 
     public void adicionarDoenca(Long id, DoencaDTO doenca){
         // Implementar Modulo Doenca.
