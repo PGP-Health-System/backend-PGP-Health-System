@@ -10,6 +10,7 @@ import br.com.HEALTHTRACK.API.HEALTHTRACK.Exception.HandlerException.Alergia.Ale
 import br.com.HEALTHTRACK.API.HEALTHTRACK.Exception.HandlerException.Alergia.AlergiaNaoLocalizada;
 import br.com.HEALTHTRACK.API.HEALTHTRACK.Mapper.Alergia.AlergiaMapper;
 import br.com.HEALTHTRACK.API.HEALTHTRACK.Repository.AlergiaRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,6 +18,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 @Service
+@Transactional
 public class AlergiaService {
 
     private final AlergiaRepository alergiaRepository;
@@ -93,5 +95,12 @@ public class AlergiaService {
         return alergiaRepository.findAll().stream()
                 .filter(alergia -> !alergia.isAtivo())
                 .toList();
+    }
+
+    public AlergiaDetalheDTO buscarAlergiaPorId(Long id){
+        Alergia alergiaExistente = alergiaRepository.findById(id)
+                .orElseThrow(() -> new AlergiaNaoLocalizada("Alergia nao encontrada"));
+
+        return alergiaMapper.toEntityAlergiaDetalheDTO(alergiaExistente);
     }
 }
