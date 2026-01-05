@@ -25,6 +25,7 @@ public class Paciente {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @EqualsAndHashCode.Include
     private long id;
     @NotBlank
     @Size(min = 5, max = 100, message = "O nome do Paciente deve ter entre 5 e 100 caracteres!")
@@ -49,7 +50,7 @@ public class Paciente {
     @Valid
     private Endereco endereco;
 
-    @OneToMany(mappedBy = "paciente", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "paciente", cascade = CascadeType.PERSIST)
     @Valid
     private List<DoencaPaciente> doencas;
 
@@ -78,7 +79,7 @@ public class Paciente {
     private String nomeMae;
     @Pattern(regexp = "\\d{15}", message = "O número do cartao do SUS deve conter 15 digitos!")
     private String numeroSus;
-    private StatusPaciente statusPaciente;
+    private StatusPaciente statusPaciente = StatusPaciente.ATIVO;
 
     @Override
     public String toString() {
