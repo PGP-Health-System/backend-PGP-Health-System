@@ -190,9 +190,13 @@ public class AlergiaController {
             )
     })
     @GetMapping("/listar")
-    public ResponseEntity<List<Alergia>> listarAlergias(){
-        List<Alergia> alergias = alergiaService.listarAlergias();
-        return ResponseEntity.ok(alergias);
+    public ResponseEntity<List<AlergiaDetalheDTO>> listarAlergias(){
+        return ResponseEntity.ok(
+                alergiaService.listarAlergias()
+                        .stream()
+                        .map(alergia -> alergiaService.buscarAlergiaPorId(alergia.getId()))
+                        .toList()
+        );
     }
 
     @Operation(
@@ -210,9 +214,13 @@ public class AlergiaController {
             )
     })
     @GetMapping("/listar/ativas")
-    public ResponseEntity<List<Alergia>> listarAlergiasAtivas(){
-        List<Alergia> alergias = alergiaService.listarAlergiasAtivas();
-        return ResponseEntity.ok(alergias);
+    public ResponseEntity<List<AlergiaDetalheDTO>> listarAlergiasAtivas(){
+        return ResponseEntity.ok(
+                alergiaService.listarAlergiasAtivas()
+                        .stream()
+                        .map(alergia -> alergiaService.buscarAlergiaPorId(alergia.getId()))
+                        .toList()
+        );
     }
 
     @Operation(
@@ -230,8 +238,18 @@ public class AlergiaController {
             )
     })
     @GetMapping("/listar/inativas")
-    public ResponseEntity<List<Alergia>> listarAlergiasInativas(){
-        List<Alergia> alergias = alergiaService.listarAlergiasInativas();
-        return ResponseEntity.ok(alergias);
+    public ResponseEntity<List<AlergiaDetalheDTO>> listarAlergiasInativas(){
+        return ResponseEntity.ok(
+                alergiaService.listarAlergiasInativas()
+                        .stream()
+                        .map(alergia -> alergiaService.buscarAlergiaPorId(alergia.getId()))
+                        .toList()
+        );
+    }
+
+    @GetMapping("/detalhes/{id}")
+    public ResponseEntity<AlergiaDetalheDTO> buscarAlergiaId(@PathVariable Long id){
+        AlergiaDetalheDTO detalheDTO = alergiaService.buscarAlergiaPorId(id);
+        return ResponseEntity.ok(detalheDTO);
     }
 }

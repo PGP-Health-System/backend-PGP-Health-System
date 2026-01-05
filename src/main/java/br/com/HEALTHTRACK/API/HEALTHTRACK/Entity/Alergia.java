@@ -27,6 +27,7 @@ public class Alergia {
 
     @NotBlank
     @Size(max = 120)
+    @Column(unique = true)
     private String nome;
 
     @Size(max = 500)
