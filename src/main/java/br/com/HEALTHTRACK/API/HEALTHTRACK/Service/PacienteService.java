@@ -117,19 +117,6 @@ public class PacienteService {
                 .toList();
     }
 
-
-    public void adicionarDoenca(Long id, DoencaDTO doenca){
-        // Implementar Modulo Doenca.
-    }
-
-    public void atualizarHistoricoFamiliar(Long id, HistoricoFamiliarDTO historicoFamiliar){
-        // Implementar Modulo Historico Familiar.
-    }
-
-    public void atualizarResponsavel(Long id, Long idResponsavel){
-        // Implementar Modulo Responsavel.
-    }
-
     private Paciente buscarPaciente(Long id) {
         return pacienteRepository.findById(id)
                 .orElseThrow(() ->
