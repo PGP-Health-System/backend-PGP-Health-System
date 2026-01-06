@@ -6,6 +6,7 @@ import br.com.HEALTHTRACK.API.HEALTHTRACK.Exception.HandlerException.AlertaSaude
 import br.com.HEALTHTRACK.API.HEALTHTRACK.Exception.HandlerException.Autenticacao.ErroDuploTipoUsuario;
 import br.com.HEALTHTRACK.API.HEALTHTRACK.Exception.HandlerException.Autenticacao.ErroUsuarioExistente;
 import br.com.HEALTHTRACK.API.HEALTHTRACK.Exception.HandlerException.Doenca.*;
+import br.com.HEALTHTRACK.API.HEALTHTRACK.Exception.HandlerException.Medicacao.MedicacaoDuplicada;
 import br.com.HEALTHTRACK.API.HEALTHTRACK.Exception.HandlerException.Medicamento.MedicamentoNaoLocalizado;
 import br.com.HEALTHTRACK.API.HEALTHTRACK.Exception.HandlerException.Paciente.*;
 import br.com.HEALTHTRACK.API.HEALTHTRACK.Exception.HandlerException.SinalVital.SinalViltalNaoLocalizado;
@@ -226,6 +227,13 @@ public class GlobalExceptionHandler {
     public ResponseEntity<?> handleSinalVitalInvalido(SinalVitalInvalido ex){
         return ResponseEntity
                 .status(HttpStatus.BAD_REQUEST)
+                .body(Map.of("erro", ex.getMessage()));
+    }
+
+    @ExceptionHandler(MedicacaoDuplicada.class)
+    public ResponseEntity<?> handleMedicacaoDuplicada(MedicacaoDuplicada ex){
+        return ResponseEntity
+                .status(HttpStatus.CONFLICT)
                 .body(Map.of("erro", ex.getMessage()));
     }
 }

@@ -1,5 +1,7 @@
 package br.com.HEALTHTRACK.API.HEALTHTRACK.Entity;
 
+import br.com.HEALTHTRACK.API.HEALTHTRACK.Enum.MedicacaoEnum.Frequencia;
+import br.com.HEALTHTRACK.API.HEALTHTRACK.Enum.MedicacaoEnum.ViaAdministracao;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -8,14 +10,14 @@ import lombok.*;
 
 import java.time.LocalDate;
 
+@Entity
+@Table(name = "medicacao_paciente")
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
-@Entity
-@Table(name = "medicacao_paciente")
 public class MedicacaoPaciente {
 
     @Id
@@ -25,22 +27,28 @@ public class MedicacaoPaciente {
 
     @NotNull
     @ManyToOne
-    @JoinColumn(name = "paciente_id")
+    @JoinColumn(name = "paciente_id", nullable = false)
     private Paciente paciente;
 
+    @NotNull
     @ManyToOne
-    @JoinColumn(name = "medicacao_id")
+    @JoinColumn(name = "medicacao_id", nullable = false)
     private Medicacao medicacao;
 
     @NotBlank
     private String dosagem;
 
-    private String viaAdministracao;
+    @NotNull
+    @Enumerated(EnumType.STRING)
+    private ViaAdministracao viaAdministracao;
 
-    private String frequencia;
+    @NotNull
+    @Enumerated(EnumType.STRING)
+    private Frequencia frequencia;
 
     private String instrucoes;
 
+    @NotNull
     private LocalDate dataInicio;
 
     private LocalDate dataFim;
@@ -55,3 +63,4 @@ public class MedicacaoPaciente {
     @JoinColumn(name = "tratamento_id")
     private Tratamento tratamento;
 }
+
