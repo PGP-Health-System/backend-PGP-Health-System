@@ -18,6 +18,7 @@ import br.com.HEALTHTRACK.API.HEALTHTRACK.Repository.ProfissionalSaudeRepository
 import br.com.HEALTHTRACK.API.HEALTHTRACK.Repository.TratamentoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -45,7 +46,7 @@ public class TratamentoService {
     }
 
 
-
+    @Transactional
     public TratamentoDetalheDTO registra (TratamentoDTO tratamentoDTO){
         Doenca doenca = doencaRepository.findByCodigoCid(tratamentoDTO.codigoCid(), Doenca.class);
         if(doenca == null){
@@ -71,7 +72,7 @@ public class TratamentoService {
         tratamento.setDoenca(doenca);
         tratamento.setProfissionalSaude(profissionalSaude);
         tratamento.setMedicacoes(medicacaoList);
-        tratamento.setCodigoTratamento(String.valueOf(novoCodigo));
+        tratamento.setCodigoTratamento(String.format("%08d",novoCodigo));
 
         tratamentoRepository.save(tratamento);
 
