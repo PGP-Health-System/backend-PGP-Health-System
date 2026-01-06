@@ -259,11 +259,9 @@ public class DoencaPacienteService{
                                 new TratamentoNaoLocalizado("Tratamento não encontrado"));
 
                 existente.setDescricao(dto.descricao());
-                existente.setDataInicio(dto.dataInicio());
-                existente.setDataFim(dto.dataFim());
 
             } else {
-                Tratamento novo = tratamentoMapper.toEntity(dto, paciente, dp);
+                Tratamento novo = tratamentoMapper.toEntity(dto);
                 atuais.add(novo);
             }
         }
