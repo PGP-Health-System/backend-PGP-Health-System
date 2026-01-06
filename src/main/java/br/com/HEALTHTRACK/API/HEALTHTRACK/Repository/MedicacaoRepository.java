@@ -12,5 +12,5 @@ public interface MedicacaoRepository extends JpaRepository<Medicacao,Long> {
 
     Optional<Medicacao> findByCodigoMedicamento(String codigoMedicamento);
 
-    Optional<List<Medicacao>> findAllByCodigoMedicamento(String codigoMedicamento);
+    List<Medicacao> findAllByCodigoMedicamento(String codigoMedicamento);
 }
