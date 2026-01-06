@@ -4,18 +4,12 @@ package br.com.HEALTHTRACK.API.HEALTHTRACK.Service;
 import br.com.HEALTHTRACK.API.HEALTHTRACK.DTO.Tratamento.AtualizarTratamentoDTO;
 import br.com.HEALTHTRACK.API.HEALTHTRACK.DTO.Tratamento.TratamentoDTO;
 import br.com.HEALTHTRACK.API.HEALTHTRACK.DTO.Tratamento.TratamentoDetalheDTO;
-import br.com.HEALTHTRACK.API.HEALTHTRACK.Entity.Doenca;
-import br.com.HEALTHTRACK.API.HEALTHTRACK.Entity.Medicacao;
-import br.com.HEALTHTRACK.API.HEALTHTRACK.Entity.ProfissionalSaude;
-import br.com.HEALTHTRACK.API.HEALTHTRACK.Entity.Tratamento;
+import br.com.HEALTHTRACK.API.HEALTHTRACK.Entity.*;
 import br.com.HEALTHTRACK.API.HEALTHTRACK.Exception.HandlerException.Doenca.CodigoCidNaoLocalizado;
 import br.com.HEALTHTRACK.API.HEALTHTRACK.Exception.HandlerException.Medicacao.MedicacoesNaoLocalizadas;
 import br.com.HEALTHTRACK.API.HEALTHTRACK.Exception.HandlerException.Profissional.EmailNaoEncontrado;
 import br.com.HEALTHTRACK.API.HEALTHTRACK.Mapper.Tratamento.TratamentoMapper;
-import br.com.HEALTHTRACK.API.HEALTHTRACK.Repository.DoencaRepository;
-import br.com.HEALTHTRACK.API.HEALTHTRACK.Repository.MedicacaoRepository;
-import br.com.HEALTHTRACK.API.HEALTHTRACK.Repository.ProfissionalSaudeRepository;
-import br.com.HEALTHTRACK.API.HEALTHTRACK.Repository.TratamentoRepository;
+import br.com.HEALTHTRACK.API.HEALTHTRACK.Repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -25,23 +19,23 @@ import java.util.List;
 @Service
 public class TratamentoService {
 
-    @Autowired
-    private TratamentoRepository tratamentoRepository;
+    private final TratamentoRepository tratamentoRepository;
 
-    @Autowired
-    private DoencaRepository doencaRepository;
+    private final DoencaRepository doencaRepository;
 
-    @Autowired
-    private MedicacaoRepository medicacaoRepository;
+    private final MedicacaoPacienteRepository medicacaoPacienteRepository;
 
-    @Autowired
-    TratamentoMapper tratamentoMapper;
+    private final TratamentoMapper tratamentoMapper;
 
-    @Autowired
-    ProfissionalSaudeRepository profissionalSaudeRepository;
+    private final ProfissionalSaudeRepository profissionalSaudeRepository;
 
-    public TratamentoRepository getTratamentoRepository() {
-        return tratamentoRepository;
+    public TratamentoService(TratamentoRepository tratamentoRepository, DoencaRepository doencaRepository, MedicacaoPacienteRepository medicacaoPacienteRepository,
+                             TratamentoMapper tratamentoMapper, ProfissionalSaudeRepository profissionalSaudeRepository){
+        this.tratamentoRepository = tratamentoRepository;
+        this.doencaRepository = doencaRepository;
+        this.medicacaoPacienteRepository = medicacaoPacienteRepository;
+        this.tratamentoMapper = tratamentoMapper;
+        this.profissionalSaudeRepository = profissionalSaudeRepository;
     }
 
 
@@ -55,6 +49,10 @@ public class TratamentoService {
         ProfissionalSaude profissionalSaude = profissionalSaudeRepository.findByEmail(tratamentoDTO.email()).orElseThrow(
                 () -> new EmailNaoEncontrado("Não foi possivel localizar o email: " + tratamentoDTO.email()));
 
+        List<MedicacaoPaciente> medicacaoList = medicacaoPacienteRepository.findAllByMedicacao_codigoMedicamento(tratamentoDTO.codigoMedicamento());
+                if(medicacaoList.isEmpty()){
+                    throw new MedicacoesNaoLocalizadas("Nenhuma medicacao foi localizada");
+                }
         List<Medicacao> medicacaoList = medicacaoRepository.findAllByCodigoMedicamento(tratamentoDTO.codigoMedicamento());
 
         if (medicacaoList.isEmpty()){

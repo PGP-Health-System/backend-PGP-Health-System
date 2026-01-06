@@ -19,7 +19,12 @@ import java.time.LocalDate;
 @Builder
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Entity
-@Table(name = "medicacao")
+@Table(
+        name = "medicacao",
+        uniqueConstraints = {
+                @UniqueConstraint(columnNames = {"nome_medicamento", "forma"})
+        }
+)
 public class Medicacao {
 
     @Id
@@ -29,15 +34,16 @@ public class Medicacao {
 
     @NotBlank
     @Size(max = 120)
+    @Column(unique = true)
     private String nomeMedicamento;
 
-    @Pattern(regexp = "^[\\p{L}0-9 ]+$" , message = "Carácteres especiais não podem ser usadas como" +
-            "códigos de medicamento" )
+    @Pattern(regexp = "^[\\p{L}0-9 ]+$")
+    @Column(unique = true)
     private String codigoMedicamento;
 
     @NotBlank
     @Size(max = 50)
-    private String dosagem;
+    private String dosagemPadrao;
 
     @NotNull
     @Enumerated(EnumType.STRING)
@@ -47,29 +53,7 @@ public class Medicacao {
     @Enumerated(EnumType.STRING)
     private ViaAdministracao via;
 
-    @NotNull
-    @Enumerated(EnumType.STRING)
-    private Frequencia frequencia;
-
-    private LocalDate dataInicio;
-
-    private LocalDate dataFim;
-
-    @ManyToOne
-    @JoinColumn(name = "tratamento_id")
-    private Tratamento tratamento;
-
-    @ManyToOne
-    @JoinColumn(name = "paciente_id")
-    private Paciente paciente;
-
-    @Size(max = 500)
-    private String observacoes;
-
     private boolean ativo = true;
-
-    @Override
-    public String toString() {
-        return nomeMedicamento + " " + dosagem + " (" + frequencia + ")";
-    }
 }
+
+

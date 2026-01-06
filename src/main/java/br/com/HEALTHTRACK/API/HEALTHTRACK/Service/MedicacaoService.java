@@ -1,26 +1,23 @@
 package br.com.HEALTHTRACK.API.HEALTHTRACK.Service;
 
-import br.com.HEALTHTRACK.API.HEALTHTRACK.DTO.Medicacao.MedicacaoDTO;
+
+import br.com.HEALTHTRACK.API.HEALTHTRACK.DTO.Medicacao.AtualizarMedicacaoDTO;
+import br.com.HEALTHTRACK.API.HEALTHTRACK.DTO.Medicacao.MedicacaoCadastroDTO;
 import br.com.HEALTHTRACK.API.HEALTHTRACK.DTO.Medicacao.MedicacaoDetalheDTO;
 import br.com.HEALTHTRACK.API.HEALTHTRACK.Entity.Medicacao;
-import br.com.HEALTHTRACK.API.HEALTHTRACK.Entity.Paciente;
-import br.com.HEALTHTRACK.API.HEALTHTRACK.Entity.Tratamento;
-import br.com.HEALTHTRACK.API.HEALTHTRACK.Exception.HandlerException.Paciente.PacienteNaoLocalizado;
-import br.com.HEALTHTRACK.API.HEALTHTRACK.Exception.HandlerException.Medicacao.ErroAtivarMedicacao;
-import br.com.HEALTHTRACK.API.HEALTHTRACK.Exception.HandlerException.Medicacao.ErroDesativarMedicacao;
-import br.com.HEALTHTRACK.API.HEALTHTRACK.Exception.HandlerException.Tratamento.TratamentoNaoLocalizado;
+import br.com.HEALTHTRACK.API.HEALTHTRACK.Exception.HandlerException.Medicacao.MedicacaoDuplicada;
+import br.com.HEALTHTRACK.API.HEALTHTRACK.Exception.HandlerException.Medicacao.MedicacoesNaoLocalizadas;
 import br.com.HEALTHTRACK.API.HEALTHTRACK.Mapper.Medicacao.MedicacaoMapper;
 import br.com.HEALTHTRACK.API.HEALTHTRACK.Repository.MedicacaoRepository;
 import br.com.HEALTHTRACK.API.HEALTHTRACK.Repository.PacienteRepository;
 import br.com.HEALTHTRACK.API.HEALTHTRACK.Repository.TratamentoRepository;
-import lombok.Getter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
+import java.util.List;
+import java.util.Optional;
 
 @Service
-@Getter
 public class MedicacaoService {
 
     @Autowired
@@ -36,42 +33,120 @@ public class MedicacaoService {
     private MedicacaoMapper medicacaoMapper;
 
 
-    public MedicacaoDetalheDTO registraMedicamento(MedicacaoDTO medicacaoDTO) {
-        Paciente paciente = pacienteRepository.findByCpf(medicacaoDTO.cpfPaciente())
-                .orElseThrow(() -> new PacienteNaoLocalizado("Paciente não foi localizado pelo CPF"));
+    public MedicacaoDetalheDTO cadastrarMedicacao(MedicacaoCadastroDTO dto){
+        Medicacao medicacaoExiste = medicacaoRepository.findByNomeMedicamento(dto.nomeMedicamento());
+        if(medicacaoExiste != null){
+            throw new MedicacaoDuplicada("Medicacao ja cadastrada em sistema");
+        }
 
-        Tratamento tratamento = tratamentoRepository.findByNome(medicacaoDTO.nomeTratamento())
-                .orElseThrow(() -> new TratamentoNaoLocalizado("TratamentoDTO não localizado pelo nome"));
+        Optional<Medicacao> codigoMedicacao = medicacaoRepository.findByCodigoMedicamento(dto.codigoMedicamento());
+        if(codigoMedicacao.isPresent()){
+            throw new MedicacaoDuplicada("Codigo de medicacao ja cadastrado em sistema");
+        }
 
-        Medicacao novaMedicacao =
-                medicacaoMapper.converteParaEntidade(medicacaoDTO, paciente, tratamento);
-        novaMedicacao.setDataInicio(LocalDate.now());
-        novaMedicacao.setAtivo(true);
+        Medicacao medicacaoCadastrada = medicacaoMapper.toEntityCadastroMedicacao(dto);
+        medicacaoRepository.save(medicacaoCadastrada);
 
-        Medicacao medicacao = medicacaoRepository.save(novaMedicacao);
-
-        return medicacaoMapper.converteEntidadeParaDetalheDTO(medicacao);
+        return medicacaoMapper.converteEntidadeParaDetalheDTO(medicacaoCadastrada);
     }
 
-    public MedicacaoDetalheDTO desativarMedicamento(MedicacaoDTO medicacaoDTO) {
-        Medicacao medicacao = medicacaoRepository.findByCodigoMedicamento(medicacaoDTO.codigoMedicamento())
-                .orElseThrow(() -> new ErroDesativarMedicacao("Erro: medicação não encontrada pelo nome ou código"));
+    public MedicacaoDetalheDTO buscarMedicacaoId(Long id){
+        return medicacaoMapper.converteEntidadeParaDetalheDTO(
+                medicacaoRepository.findById(id).orElseThrow(
+                        () -> new MedicacoesNaoLocalizadas("Medicacao nao encontrada")
+                )
+        );
+    }
 
-        if (!medicacao.isAtivo()){
-            throw new ErroAtivarMedicacao("Medicação está desativada");
+    public List<MedicacaoDetalheDTO> listarMedicacoesAtivas(){
+        List<Medicacao> medicacoes = medicacaoRepository.findAll()
+                .stream()
+                .filter(Medicacao::isAtivo)
+                .toList();
+
+        if(medicacoes.isEmpty()){
+            throw new MedicacoesNaoLocalizadas("Nenhuma medicacao ativa no momento");
         }
+        return medicacoes.stream()
+                .map(medicacaoMapper::converteEntidadeParaDetalheDTO)
+                .toList();
+    }
+
+    public List<MedicacaoDetalheDTO> listarTodasMedicacoes(){
+        List<Medicacao> medicacoes = medicacaoRepository.findAll();
+
+        if(medicacoes.isEmpty()){
+            throw new MedicacoesNaoLocalizadas("Nenhuma medicacao cadastrada no momento");
+        }
+        return medicacoes.stream()
+                .map(medicacaoMapper::converteEntidadeParaDetalheDTO)
+                .toList();
+    }
+
+    public List<MedicacaoDetalheDTO> buscarMedicacaoPorNome(String termo){
+        List<Medicacao> medicacoes = medicacaoRepository.findByTermoMedicacao(termo);
+
+        if(medicacoes.isEmpty()){
+            throw new MedicacoesNaoLocalizadas("Nenhuma medicacao foi localizada pelo termo: " + termo);
+        }
+
+        return medicacoes.stream()
+                .map(medicacaoMapper::converteEntidadeParaDetalheDTO)
+                .toList();
+    }
+
+    public MedicacaoDetalheDTO atualizarMedicacao(String nomeMedicacao, AtualizarMedicacaoDTO dto){
+
+        Medicacao medicacaoExiste = medicacaoRepository.findByNomeMedicamento(nomeMedicacao);
+        if(medicacaoExiste == null){
+            throw new MedicacoesNaoLocalizadas("Medicacao Nao localizada com este nome");
+        }
+        Medicacao medicacaoDuplicada = medicacaoRepository.findByNomeMedicamento(dto.nomeMedicamento());
+        if(medicacaoDuplicada != null){
+            throw new MedicacaoDuplicada("Medicacao com este nome ja cadastrada em sistema");
+        }
+        Optional<Medicacao> codigoDuplicado = medicacaoRepository.findByCodigoMedicamento(dto.codigoMedicamento());
+        if(codigoDuplicado.isPresent()){
+            throw new MedicacaoDuplicada("Codigo de medicacao ja cadastrada em sistema");
+        }
+
+        if(dto.nomeMedicamento() != null && !dto.nomeMedicamento().equals(nomeMedicacao)){
+            medicacaoExiste.setNomeMedicamento(dto.nomeMedicamento());
+        }
+        if(dto.codigoMedicamento() != null && !dto.codigoMedicamento().equals(medicacaoExiste.getCodigoMedicamento())){
+            medicacaoExiste.setCodigoMedicamento(dto.codigoMedicamento());
+        }
+        if(dto.dosagemPadrao() != null && !dto.dosagemPadrao().equals(medicacaoExiste.getDosagemPadrao())){
+            medicacaoExiste.setDosagemPadrao(dto.dosagemPadrao());
+        }
+        if(dto.forma() != null && !dto.forma().name().equals(medicacaoExiste.getForma().name())){
+            medicacaoExiste.setForma(dto.forma());
+        }
+        if(dto.via() != null && !dto.via().name().equals(medicacaoExiste.getVia().name())){
+            medicacaoExiste.setVia(dto.via());
+        }
+
+        medicacaoRepository.save(medicacaoExiste);
+        return medicacaoMapper.converteEntidadeParaDetalheDTO(medicacaoExiste);
+    }
+
+    public MedicacaoDetalheDTO desativarMedicacao(String nomeMedicacao){
+        Medicacao medicacao = medicacaoRepository.findByNomeMedicamento(nomeMedicacao);
+        if(medicacao == null){
+            throw new MedicacoesNaoLocalizadas("Medicacao com nome: " + nomeMedicacao + " nao foi localizada");
+        }
+
         medicacao.setAtivo(false);
         medicacaoRepository.save(medicacao);
         return medicacaoMapper.converteEntidadeParaDetalheDTO(medicacao);
     }
 
-    public MedicacaoDetalheDTO ativarMedicamento(MedicacaoDTO medicacaoDTO) {
-        Medicacao medicacao = medicacaoRepository.findByCodigoMedicamento(medicacaoDTO.codigoMedicamento())
-                .orElseThrow(() -> new ErroAtivarMedicacao("Erro: medicação não encontrada pelo nome ou código"));
-
-        if (medicacao.isAtivo()){
-            throw new ErroAtivarMedicacao("Medicação já está ativa");
+    public MedicacaoDetalheDTO ativarMedicacao(String nomeMedicacao){
+        Medicacao medicacao = medicacaoRepository.findByNomeMedicamento(nomeMedicacao);
+        if(medicacao == null){
+            throw new MedicacoesNaoLocalizadas("Medicacao com nome: " + nomeMedicacao + " nao foi localizada");
         }
+
         medicacao.setAtivo(true);
         medicacaoRepository.save(medicacao);
         return medicacaoMapper.converteEntidadeParaDetalheDTO(medicacao);
