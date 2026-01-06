@@ -11,6 +11,7 @@ import java.util.List;
 
 public record TratamentoDTO(
         String nome,
+        String codigoTratamento,
         String codigoMedicamento,
         String codigoCid,
         String email,

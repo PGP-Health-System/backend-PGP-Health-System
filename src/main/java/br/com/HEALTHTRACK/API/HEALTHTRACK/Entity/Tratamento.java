@@ -24,6 +24,10 @@ public class Tratamento {
     private Long id;
 
     @NotBlank
+    @Column(unique = true)
+    private String codigoTratamento;
+
+    @NotBlank
     private String nome;
 
     private String descricao;
@@ -51,4 +55,11 @@ public class Tratamento {
 
     @OneToMany(mappedBy = "tratamento", cascade = CascadeType.ALL)
     private List<MedicacaoPaciente> medicacoes;
+    private List<Medicacao> medicacoes;
+
+
+    @PrePersist
+    public void gerarCodigoAtendimento(){}
+
+
 }
