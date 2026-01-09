@@ -26,17 +26,13 @@ public class TratamentoService {
     @Autowired
     private TratamentoRepository tratamentoRepository;
 
-    @Autowired
-    private DoencaRepository doencaRepository;
+    private final DoencaRepository doencaRepository;
 
-    @Autowired
-    private MedicacaoRepository medicacaoRepository;
+    private final MedicacaoPacienteRepository medicacaoPacienteRepository;
 
-    @Autowired
-    TratamentoMapper tratamentoMapper;
+    private final TratamentoMapper tratamentoMapper;
 
-    @Autowired
-    ProfissionalSaudeRepository profissionalSaudeRepository;
+    private final ProfissionalSaudeRepository profissionalSaudeRepository;
 
 
     @Transactional

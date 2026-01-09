@@ -56,7 +56,7 @@ public class    DoencaPaciente {
 
     @OneToMany
     @NotNull
-    private List<Medicacao> medicacoes;
+    private List<MedicacaoPaciente> medicacoes;
 
     @OneToMany
     @NotNull

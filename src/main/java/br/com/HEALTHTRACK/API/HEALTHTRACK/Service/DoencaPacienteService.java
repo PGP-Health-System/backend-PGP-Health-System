@@ -4,6 +4,7 @@ import br.com.HEALTHTRACK.API.HEALTHTRACK.DTO.Alergia.AlergiaDTO;
 import br.com.HEALTHTRACK.API.HEALTHTRACK.DTO.DoencaPaciente.AtualizarDoencaPaciente;
 import br.com.HEALTHTRACK.API.HEALTHTRACK.DTO.DoencaPaciente.CadastrarDoencaPaciente;
 import br.com.HEALTHTRACK.API.HEALTHTRACK.DTO.DoencaPaciente.DetalhesDoencaPacienteDTO;
+import br.com.HEALTHTRACK.API.HEALTHTRACK.DTO.Medicacao.MedicacaoCadastroDTO;
 import br.com.HEALTHTRACK.API.HEALTHTRACK.DTO.Medicacao.MedicacaoDTO;
 import br.com.HEALTHTRACK.API.HEALTHTRACK.DTO.Sintoma.SintomaDTO;
 import br.com.HEALTHTRACK.API.HEALTHTRACK.DTO.Tratamento.TratamentoDTO;
@@ -212,24 +213,24 @@ public class DoencaPacienteService{
             List<MedicacaoDTO> dtos,
             Paciente paciente) {
 
-        List<Medicacao> atuais = dp.getMedicacoes();
+        List<MedicacaoPaciente> atuais = dp.getMedicacoes();
 
         for (MedicacaoDTO dto : dtos) {
 
             if (dto.nomeMedicamento() != null) {
-                Medicacao existente = atuais.stream()
-                        .filter(m -> m.getNomeMedicamento().equals(dto.nomeMedicamento()))
+                MedicacaoPaciente existente = atuais.stream()
+                        .filter(m -> m.getMedicacao().getNomeMedicamento().equals(dto.nomeMedicamento()))
                         .findFirst()
                         .orElseThrow(() ->
                                 new MedicamentoNaoLocalizado("Medicação não encontrada"));
 
-                existente.setNomeMedicamento(dto.nomeMedicamento());
+                existente.getMedicacao().setNomeMedicamento(dto.nomeMedicamento());
                 existente.setDosagem(dto.dosagem());
-                existente.setVia(dto.via());
+                existente.setViaAdministracao(dto.via());
                 existente.setFrequencia(dto.frequencia());
 
             } else {
-                Medicacao nova = medicacaoMapper.converteParaEntidade(
+                MedicacaoPaciente nova = medicacaoMapper.converteParaEntidade(
                         dto, paciente, (Tratamento) dp.getTratamentos()
                 );
                 atuais.add(nova);
@@ -238,7 +239,7 @@ public class DoencaPacienteService{
 
         atuais.removeIf(m ->
                 dtos.stream().noneMatch(d ->
-                        d.nomeMedicamento() != null && d.nomeMedicamento().equals(m.getNomeMedicamento()))
+                        d.nomeMedicamento() != null && d.nomeMedicamento().equals(m.getMedicacao().getNomeMedicamento()))
         );
     }
 
