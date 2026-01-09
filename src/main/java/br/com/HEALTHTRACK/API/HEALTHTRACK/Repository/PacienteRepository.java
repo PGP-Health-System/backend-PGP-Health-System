@@ -17,6 +17,9 @@ public interface PacienteRepository extends JpaRepository<Paciente, Long> {
 
     Optional<Paciente> findByCpf(String cpf);
 
+    @Query(value = "SELECT * FROM paciente WHERE cpf = :cpf")
+    Optional<Long> findByCpff(@Param("cpf") String cpf);
+
     Paciente findByEmail(String email);
 
     Optional<Paciente> findById(Long id);

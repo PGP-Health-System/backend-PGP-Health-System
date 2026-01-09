@@ -19,11 +19,8 @@ public interface TratamentoMapper {
 
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "nome", ignore = true)
-    @Mapping(target = "status", ignore = true)
-    @Mapping(target = "doenca", ignore = true)
-    @Mapping(target = "profissionalSaude", ignore = true)
     @Mapping(target = "medicacoes", ignore = true)
-    Tratamento toEntity(TratamentoDTO tratamentoDTO, Paciente paciente, DoencaPaciente doencaPaciente);
+    Tratamento toEntity(TratamentoDTO tratamentoDTO);
 
     Tratamento paraEntity(Tratamento tratamento);
 

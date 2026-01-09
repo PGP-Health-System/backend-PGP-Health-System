@@ -9,11 +9,11 @@ import lombok.*;
 
 import java.time.LocalDate;
 import java.util.List;
-
-@Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@Getter
+
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Entity
 @Table(name = "tratamento")
@@ -21,6 +21,7 @@ public class Tratamento {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @EqualsAndHashCode.Include
     private Long id;
 
     @NotBlank
@@ -36,30 +37,9 @@ public class Tratamento {
     @NotNull
     private TipoTratamento tipo;
 
-    @NotNull
-    private LocalDate dataInicio;
-
-    private LocalDate dataFim;
-
     private String frequencia;
 
-    @Enumerated(EnumType.STRING)
-    @NotNull
-    private StatusTratamento status;
-
-    @ManyToOne
-    private Doenca doenca;
-
-    @ManyToOne
-    private ProfissionalSaude profissionalSaude;
-
-    @OneToMany(mappedBy = "tratamento", cascade = CascadeType.ALL)
-    private List<MedicacaoPaciente> medicacoes;
-    private List<Medicacao> medicacoes;
-
-
-    @PrePersist
-    public void gerarCodigoAtendimento(){}
-
+    @OneToOne(mappedBy = "tratamentoPaciente", cascade = CascadeType.ALL)
+    private TratamentoPaciente tratamentoPaciente;
 
 }

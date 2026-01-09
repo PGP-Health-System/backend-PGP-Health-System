@@ -53,6 +53,18 @@ public class Medicacao {
     @Enumerated(EnumType.STRING)
     private ViaAdministracao via;
 
+    @NotNull
+    @Enumerated(EnumType.STRING)
+    private Frequencia frequencia;
+
+    private LocalDate dataInicio;
+
+    private LocalDate dataFim;
+
+
+    @Size(max = 500)
+    private String observacoes;
+
     private boolean ativo = true;
 }
 

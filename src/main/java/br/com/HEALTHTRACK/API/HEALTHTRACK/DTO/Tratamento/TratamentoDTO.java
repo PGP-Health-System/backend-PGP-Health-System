@@ -11,18 +11,10 @@ import java.util.List;
 
 public record TratamentoDTO(
         String nome,
-        String codigoTratamento,
         String codigoMedicamento,
-        String codigoCid,
-        String email,
         String descricao,
         TipoTratamento tipo,
-        LocalDate dataInicio,
-        LocalDate dataFim,
         String frequencia,
-        StatusTratamento status,
-        Doenca doenca,
-        ProfissionalSaude profissionalSaude,
         List<Medicacao> medicacoes
 ) {
 }

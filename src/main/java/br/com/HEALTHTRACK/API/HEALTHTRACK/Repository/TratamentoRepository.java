@@ -12,10 +12,8 @@ public interface TratamentoRepository extends JpaRepository<Tratamento, Long> {
 
     Optional<Tratamento> findByNome(String nome);
 
-    Tratamento findByCodigoTratemento(String codigoTratamento);
-
    Optional<Tratamento> findByCodigoTratamento(String s);
 
-    @Query("SELECT MAX(t.codigoTratamento) FROM Tratamento t")
+    @Query(value = "SELECT MAX(codigoTratamento) FROM Tratamento ", nativeQuery = true)
     String findCodigoMax();
 }
