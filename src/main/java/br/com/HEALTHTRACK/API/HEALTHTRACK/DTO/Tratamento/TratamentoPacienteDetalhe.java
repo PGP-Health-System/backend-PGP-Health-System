@@ -5,15 +5,10 @@ import jakarta.validation.constraints.NotNull;
 
 import java.time.LocalDate;
 
-public record TratamentoPacienteDTO(
+public record TratamentoPacienteDetalhe(
 
-        String cpf,
+        Long id,
 
-        String codigoTratamento,
-
-        String codigoCid,
-
-        String email,
         @NotNull
         Long tratamentoId,
 
@@ -24,16 +19,11 @@ public record TratamentoPacienteDTO(
         Long profissionalSaudeId,
 
         @NotNull
-        Long doencaId,
-
-        @NotNull
         LocalDate dataInicio,
 
         LocalDate dataFim,
 
         @NotNull
-        StatusTratamento status,
-
-
+        StatusTratamento status
 ) {
 }

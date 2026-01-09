@@ -11,6 +11,7 @@ import br.com.HEALTHTRACK.API.HEALTHTRACK.Repository.DoencaRepository;
 import br.com.HEALTHTRACK.API.HEALTHTRACK.Repository.MedicacaoRepository;
 import br.com.HEALTHTRACK.API.HEALTHTRACK.Repository.ProfissionalSaudeRepository;
 import br.com.HEALTHTRACK.API.HEALTHTRACK.Repository.TratamentoRepository;
+import org.apache.logging.log4j.util.StringBuilders;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -19,6 +20,8 @@ import java.util.List;
 
 @Service
 public class TratamentoService {
+
+    private StringBuilder stringBuilder;
 
     @Autowired
     private TratamentoRepository tratamentoRepository;
@@ -50,8 +53,10 @@ public class TratamentoService {
         long novoCodigo = (ultimoCodigo != null) ? Long.parseLong(ultimoCodigo) + 1 : 1;
 
         Tratamento tratamento = tratamentoMapper.converteParaEntidade(tratamentoDTO);
-        tratamento.setMedicacoes(medicacaoList);
-        tratamento.setCodigoTratamento(String.format("%08d", novoCodigo));
+        String codigoTratamento = String.format("%08d", novoCodigo);
+
+        tratamento.setCodigoTratamento("TRT-"+codigoTratamento);
+
 
         tratamentoRepository.save(tratamento);
 

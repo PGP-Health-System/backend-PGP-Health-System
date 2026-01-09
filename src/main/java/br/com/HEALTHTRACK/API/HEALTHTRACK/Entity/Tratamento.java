@@ -39,7 +39,7 @@ public class Tratamento {
 
     private String frequencia;
 
-    @OneToMany(mappedBy = "tratamento", cascade = CascadeType.ALL)
-    private List<Medicacao> medicacoes;
+    @OneToOne(mappedBy = "tratamentoPaciente", cascade = CascadeType.ALL)
+    private TratamentoPaciente tratamentoPaciente;
 
 }

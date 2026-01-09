@@ -23,16 +23,20 @@ public class TratamentoPaciente {
 
     @ManyToOne
     @NotNull
+    @JoinColumn(name = "tratamento_id", nullable = false)
     private Tratamento tratamento;
 
     @ManyToOne
     @NotNull
+    @JoinColumn(name = "paciente_id")
     private Paciente paciente;
 
     @ManyToOne
+    @JoinColumn(name = "doenca_id")
     private Doenca doenca;
 
     @ManyToOne
+    @JoinColumn(name = "profisional_saude_id")
     private ProfissionalSaude profissionalSaude;
 
     @NotNull

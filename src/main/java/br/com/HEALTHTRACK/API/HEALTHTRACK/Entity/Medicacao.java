@@ -55,13 +55,6 @@ public class Medicacao {
 
     private LocalDate dataFim;
 
-    @ManyToOne
-    @JoinColumn(name = "tratamento_id")
-    private Tratamento tratamento;
-
-    @ManyToOne
-    @JoinColumn(name = "paciente_id")
-    private Paciente paciente;
 
     @Size(max = 500)
     private String observacoes;
