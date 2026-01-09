@@ -1,19 +1,13 @@
 package br.com.HEALTHTRACK.API.HEALTHTRACK.DTO.Medicacao;
 
-import br.com.HEALTHTRACK.API.HEALTHTRACK.Entity.Paciente;
-import br.com.HEALTHTRACK.API.HEALTHTRACK.Entity.Tratamento;
 import br.com.HEALTHTRACK.API.HEALTHTRACK.Enum.MedicacaoEnum.FormaFarmaceutica;
-import br.com.HEALTHTRACK.API.HEALTHTRACK.Enum.MedicacaoEnum.Frequencia;
 import br.com.HEALTHTRACK.API.HEALTHTRACK.Enum.MedicacaoEnum.ViaAdministracao;
 
-import java.time.LocalDate;
-
-public record MedicacaoDetalheDTO(
+public record AtualizarMedicacaoDTO(
         String nomeMedicamento,
         String codigoMedicamento,
         String dosagemPadrao,
         FormaFarmaceutica forma,
-        ViaAdministracao via,
-        boolean ativo
+        ViaAdministracao via
 ) {
 }

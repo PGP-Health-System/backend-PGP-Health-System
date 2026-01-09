@@ -3,8 +3,7 @@ package br.com.HEALTHTRACK.API.HEALTHTRACK.DTO.DoencaPaciente;
 import br.com.HEALTHTRACK.API.HEALTHTRACK.DTO.Alergia.AlergiaDTO;
 import br.com.HEALTHTRACK.API.HEALTHTRACK.DTO.Doenca.DoencaDTO;
 import br.com.HEALTHTRACK.API.HEALTHTRACK.DTO.HistoricoFamiliar.HistoricoFamiliarDTO;
-import br.com.HEALTHTRACK.API.HEALTHTRACK.DTO.Medicacao.MedicacaoDTO;
-import br.com.HEALTHTRACK.API.HEALTHTRACK.DTO.Paciente.PacienteAtualizacaoDTO;
+import br.com.HEALTHTRACK.API.HEALTHTRACK.DTO.Medicacao.MedicacaoCadastroDTO;
 import br.com.HEALTHTRACK.API.HEALTHTRACK.DTO.Paciente.PacienteDTO;
 import br.com.HEALTHTRACK.API.HEALTHTRACK.DTO.Sintoma.SintomaDTO;
 import br.com.HEALTHTRACK.API.HEALTHTRACK.DTO.Tratamento.TratamentoDTO;
@@ -24,7 +23,7 @@ public record CadastrarDoencaPaciente(
         LocalDate dataInicioSintomas,
         List<TratamentoDTO> tratamentos,
         List<SintomaDTO> sintomas,
-        List<MedicacaoDTO> medicacoes,
+        List<MedicacaoCadastroDTO> medicacoes,
         List<AlergiaDTO> alergias,
         List<HistoricoFamiliarDTO> historicoFamiliar,
         String observacaoMedica,
