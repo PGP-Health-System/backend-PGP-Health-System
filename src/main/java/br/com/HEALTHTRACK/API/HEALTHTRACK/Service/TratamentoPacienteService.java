@@ -18,14 +18,18 @@ public class TratamentoPacienteService {
     private ProfissionalSaudeRepository profissionalSaudeRepository;
     private TratamentoPacienteRepository tratamentoPacienteRepository;
     private TratamentoPacienteMapper tratamentoPacienteMapper;
+    private TratamentoService tratamentoService;
+    private DoencaService doencaService;
 
-    public TratamentoPacienteService(TratamentoRepository tratamentoRepository, PacienteRepository pacienteRepository, DoencaRepository doencaRepository, ProfissionalSaudeRepository profissionalSaudeRepository, TratamentoPacienteRepository tratamentoPacienteRepository, TratamentoPacienteMapper tratamentoPacienteMapper) {
+    public TratamentoPacienteService(TratamentoRepository tratamentoRepository, PacienteRepository pacienteRepository, DoencaRepository doencaRepository, ProfissionalSaudeRepository profissionalSaudeRepository, TratamentoPacienteRepository tratamentoPacienteRepository, TratamentoPacienteMapper tratamentoPacienteMapper, TratamentoService tratamentoService, DoencaService doencaService) {
         this.tratamentoRepository = tratamentoRepository;
         this.pacienteRepository = pacienteRepository;
         this.doencaRepository = doencaRepository;
         this.profissionalSaudeRepository = profissionalSaudeRepository;
         this.tratamentoPacienteRepository = tratamentoPacienteRepository;
         this.tratamentoPacienteMapper = tratamentoPacienteMapper;
+        this.tratamentoService = tratamentoService;
+        this.doencaService = doencaService;
     }
 
     //Metodo diferente de Tratamento, este relaciona o paciente com o tratamento
@@ -34,11 +38,9 @@ public class TratamentoPacienteService {
         Paciente pacientId = pacienteRepository.findByCpf(tratamentoPacienteDTO.cpf())
                 .orElseThrow(() -> new PacienteNaoLocalizado("Paciente não encontrado com esse CPF"));
 
-        Tratamento tratamentoId = tratamentoRepository.findByCodigoTratamento(tratamentoPacienteDTO.codigoTratamento())
-                .orElseThrow(() -> new TratamentoNaoLocalizado("Tratamento não localizado códido errado"));
+        Tratamento tratamentoId = tratamentoService.buscarTratanemntoExistente(tratamentoPacienteDTO.codigoTratamento());
 
-        Doenca doenca = doencaRepository.findByCodigoCid(
-                        tratamentoPacienteDTO.codigoCid(), Doenca.class);
+        Doenca doenca = doencaService.buscaDoencaExistente(tratamentoPacienteDTO.codigoCid());
 
         ProfissionalSaude profissionalId = profissionalSaudeRepository.findByEmail(tratamentoPacienteDTO.email())
                 .orElseThrow(() -> new EmailNaoEncontrado("Profissional não encontrado pelo Email"));

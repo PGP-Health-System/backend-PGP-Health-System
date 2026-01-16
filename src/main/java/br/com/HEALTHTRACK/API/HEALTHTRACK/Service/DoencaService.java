@@ -4,10 +4,7 @@ import br.com.HEALTHTRACK.API.HEALTHTRACK.DTO.Doenca.AtualizarDoencaDTO;
 import br.com.HEALTHTRACK.API.HEALTHTRACK.DTO.Doenca.DoencaCadastroDTO;
 import br.com.HEALTHTRACK.API.HEALTHTRACK.DTO.Doenca.DoencaDetalhesDTO;
 import br.com.HEALTHTRACK.API.HEALTHTRACK.Entity.Doenca;
-import br.com.HEALTHTRACK.API.HEALTHTRACK.Exception.HandlerException.Doenca.CodigoCidDuplicado;
-import br.com.HEALTHTRACK.API.HEALTHTRACK.Exception.HandlerException.Doenca.CodigoCidNaoLocalizado;
-import br.com.HEALTHTRACK.API.HEALTHTRACK.Exception.HandlerException.Doenca.NomeDoencaDuplicada;
-import br.com.HEALTHTRACK.API.HEALTHTRACK.Exception.HandlerException.Doenca.NomeDoencaNaoLocalizado;
+import br.com.HEALTHTRACK.API.HEALTHTRACK.Exception.HandlerException.Doenca.*;
 import br.com.HEALTHTRACK.API.HEALTHTRACK.Mapper.Doenca.DoencaMapper;
 import br.com.HEALTHTRACK.API.HEALTHTRACK.Repository.DoencaRepository;
 import org.springframework.stereotype.Service;
@@ -19,6 +16,7 @@ public class DoencaService {
 
     private final DoencaRepository doencaRepository;
     private final DoencaMapper doencaMapper;
+
 
     public DoencaService(DoencaRepository doencaRepository, DoencaMapper doencaMapper) {
         this.doencaRepository = doencaRepository;
@@ -80,4 +78,14 @@ public class DoencaService {
         }
         return doenca;
     }
+
+    public Doenca buscaDoencaExistente(String codigoCid){
+     Doenca doenca = doencaRepository.findByCodigoCid(codigoCid, Doenca.class);
+        if (doenca == null){
+            throw new NomeDoencaNaoLocalizado("Doença não localizada pelo codigo cid");
+        }
+        return doenca;
+    }
+
+
 }
