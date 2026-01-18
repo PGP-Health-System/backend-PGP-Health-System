@@ -19,6 +19,7 @@ import jakarta.validation.Valid;
 import org.springframework.stereotype.Service;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @Transactional
@@ -121,6 +122,12 @@ public class PacienteService {
         return pacienteRepository.findById(id)
                 .orElseThrow(() ->
                         new PacienteNaoLocalizado("Paciente não encontrado"));
+    }
+
+    public Paciente buscarPacientePorCpf(String cpf){
+        return pacienteRepository.findByCpf(cpf)
+                .orElseThrow(() ->
+                        new PacienteNaoLocalizado("Paciente não localizado com esse cpf"));
     }
 }
 
