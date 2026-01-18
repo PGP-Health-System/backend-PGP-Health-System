@@ -55,8 +55,6 @@ public class TratamentoService {
         String codigoTratamento = String.format("%08d", novoCodigo);
 
         tratamento.setCodigoTratamento("TRT-" + codigoTratamento);
-
-
         tratamentoRepository.save(tratamento);
 
         return tratamentoMapper.converteEntidadeParaDetalhe(tratamento);

@@ -8,9 +8,7 @@ import br.com.HEALTHTRACK.API.HEALTHTRACK.Enum.SintomaEnum.TipoSintoma;
 
 import java.time.LocalDate;
 
-public record SintomaDTO(
-        String pacienteCpf,
-        String emailProfissional,
+public record DetalheSintomaDTO(
         String nome,
         String descricao,
         GravidadeSintoma gravidade,
@@ -18,6 +16,6 @@ public record SintomaDTO(
         LocalDate dataInicio,
         String duracao,
         DoencaDTO doenca,
-        ProfissionalSaudeDTO profissionalSaude
-) {
+        PacienteDTO paciente,
+        ProfissionalSaudeDTO profissionalSaude) {
 }

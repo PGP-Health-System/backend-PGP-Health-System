@@ -226,8 +226,8 @@ public class DoencaPacienteService{
 
                 existente.getMedicacao().setNomeMedicamento(dto.nomeMedicamento());
                 existente.setDosagem(dto.dosagem());
-                existente.setViaAdministracao(dto.via());
-                existente.setFrequencia(dto.frequencia());
+                existente.setViaAdministracao(String.valueOf(dto.via()));
+                existente.setFrequencia(String.valueOf(dto.frequencia()));
 
             } else {
                 MedicacaoPaciente nova = medicacaoMapper.converteParaEntidade(

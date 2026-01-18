@@ -2,6 +2,7 @@ package br.com.HEALTHTRACK.API.HEALTHTRACK.Service;
 
 import br.com.HEALTHTRACK.API.HEALTHTRACK.DTO.Alergia.AlergiaAtualizacaoDTO;
 import br.com.HEALTHTRACK.API.HEALTHTRACK.DTO.Alergia.AlergiaCadastroDTO;
+import br.com.HEALTHTRACK.API.HEALTHTRACK.DTO.Alergia.AlergiaDTO;
 import br.com.HEALTHTRACK.API.HEALTHTRACK.DTO.Alergia.AlergiaDetalheDTO;
 import br.com.HEALTHTRACK.API.HEALTHTRACK.Entity.Alergia;
 import br.com.HEALTHTRACK.API.HEALTHTRACK.Enum.AlergiaEnum.GravidadeAlergia;
