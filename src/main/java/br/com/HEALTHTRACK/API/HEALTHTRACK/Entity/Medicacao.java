@@ -1,7 +1,7 @@
 package br.com.HEALTHTRACK.API.HEALTHTRACK.Entity;
 
-import br.com.HEALTHTRACK.API.HEALTHTRACK.Enum.MedicacaoEnum.Frequencia;
 import br.com.HEALTHTRACK.API.HEALTHTRACK.Enum.MedicacaoEnum.FormaFarmaceutica;
+import br.com.HEALTHTRACK.API.HEALTHTRACK.Enum.MedicacaoEnum.Frequencia;
 import br.com.HEALTHTRACK.API.HEALTHTRACK.Enum.MedicacaoEnum.ViaAdministracao;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
