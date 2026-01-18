@@ -17,5 +17,6 @@ public record DetalheSintomaDTO(
         String duracao,
         DoencaDTO doenca,
         PacienteDTO paciente,
-        ProfissionalSaudeDTO profissionalSaude) {
+        ProfissionalSaudeDTO profissionalSaude
+) {
 }
