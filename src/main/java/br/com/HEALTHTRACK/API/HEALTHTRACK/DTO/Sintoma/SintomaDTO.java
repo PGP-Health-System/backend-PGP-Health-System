@@ -10,6 +10,7 @@ import java.time.LocalDate;
 
 public record SintomaDTO(
         String pacienteCpf,
+        String codigoCid,
         String emailProfissional,
         String nome,
         String descricao,
