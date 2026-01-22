@@ -104,4 +104,5 @@ public class AlergiaService {
 
         return alergiaMapper.toEntityAlergiaDetalheDTO(alergiaExistente);
     }
+
 }

@@ -14,4 +14,6 @@ public interface SintomaMapper {
     Sintoma toEntity(SintomaDTO sintomaDTO);
 
     DetalheSintomaDTO toDetalhe(Sintoma sintoma);
+
+    void updateEntityFromDto(SintomaDTO sintomaDTO, Sintoma sintoma);
 }
