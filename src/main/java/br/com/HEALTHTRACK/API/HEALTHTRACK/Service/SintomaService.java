@@ -107,7 +107,7 @@ public class SintomaService {
 
 
     public List<TipoSintoma> tiposSintomas(){
-        return List.of(Tipo Sintoma.values());
+        return List.of(TipoSintoma.values());
     }
 
     public Sintoma aumentarGravidade(Long id){
