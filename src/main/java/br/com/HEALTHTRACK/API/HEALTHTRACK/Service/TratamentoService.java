@@ -61,6 +61,9 @@ public class TratamentoService {
 
     }
 
+
+
+
     public boolean verificaListaMedicacao(List<MedicacaoPaciente> list) {
         if (list == null || list.isEmpty()) {
             throw new MedicacoesNaoLocalizadas(
