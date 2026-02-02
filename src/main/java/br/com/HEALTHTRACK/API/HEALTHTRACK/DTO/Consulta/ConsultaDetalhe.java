@@ -1,0 +1,22 @@
+package br.com.HEALTHTRACK.API.HEALTHTRACK.DTO.Consulta;
+
+import br.com.HEALTHTRACK.API.HEALTHTRACK.Entity.Paciente;
+import br.com.HEALTHTRACK.API.HEALTHTRACK.Entity.ProfissionalSaude;
+import br.com.HEALTHTRACK.API.HEALTHTRACK.Entity.RegistroMedicacao;
+import br.com.HEALTHTRACK.API.HEALTHTRACK.Enum.ConsultaEnum.ConsultaStatus;
+
+import java.time.LocalDateTime;
+import java.util.List;
+
+public record ConsultaDetalhe(
+        Paciente paciente,
+        ProfissionalSaude profissionalSaude,
+        LocalDateTime dataHoraAgendada,
+        Integer duracaoMunutos,
+        ConsultaStatus status, //ENUM
+        String diagnostico,
+        String conduta,
+        List<RegistroMedicacao> registroMedicacaoList,
+        LocalDateTime criadoEm,
+        LocalDateTime atualizadoEm) {
+}
