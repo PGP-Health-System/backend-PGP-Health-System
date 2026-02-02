@@ -11,6 +11,7 @@ import java.util.List;
 public record ConsultaDTO(
     Paciente paciente,
     String cpf,
+    String medicoEmail,
     ProfissionalSaude profissionalSaude,
     LocalDateTime dataHoraAgendada,
     Integer duracaoMunutos,
