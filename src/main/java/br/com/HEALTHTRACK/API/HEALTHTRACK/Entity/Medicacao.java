@@ -66,6 +66,9 @@ public class Medicacao {
     private String observacoes;
 
     private boolean ativo = true;
+
+
+
 }
 
 
