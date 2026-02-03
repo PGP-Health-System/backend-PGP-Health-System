@@ -1,6 +1,7 @@
 package br.com.HEALTHTRACK.API.HEALTHTRACK.Mapper.Consulta;
 
 import br.com.HEALTHTRACK.API.HEALTHTRACK.DTO.Consulta.ConsultaDTO;
+import br.com.HEALTHTRACK.API.HEALTHTRACK.DTO.Consulta.ConsultaDetalhe;
 import br.com.HEALTHTRACK.API.HEALTHTRACK.Entity.Consulta;
 import org.mapstruct.Mapper;
 import org.mapstruct.ReportingPolicy;
