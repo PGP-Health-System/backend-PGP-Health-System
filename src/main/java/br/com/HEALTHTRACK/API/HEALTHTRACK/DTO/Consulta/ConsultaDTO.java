@@ -10,6 +10,7 @@ import java.util.List;
 
 public record ConsultaDTO(
     Paciente paciente,
+    List<Long> registrosMedicacaoIds,
     String cpf,
     String medicoEmail,
     ProfissionalSaude profissionalSaude,
@@ -18,7 +19,6 @@ public record ConsultaDTO(
     ConsultaStatus status, //ENUM
     String diagnostico,
     String conduta,
-    List<RegistroMedicacao> registroMedicacaoList,
     LocalDateTime criadoEm,
     LocalDateTime atualizadoEm
 ) {
