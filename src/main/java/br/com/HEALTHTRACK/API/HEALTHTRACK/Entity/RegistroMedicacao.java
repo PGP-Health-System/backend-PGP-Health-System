@@ -34,6 +34,10 @@ public class RegistroMedicacao {
     private ProfissionalSaude administradoPorProfissional;
 
     @ManyToOne
+    @JoinColumn(name = "consulta_id")
+    private Consulta consulta;
+
+    @ManyToOne
     @JoinColumn(name = "administrado_por_usuario_id")
     private Usuario administradoPorUsuario;
 
