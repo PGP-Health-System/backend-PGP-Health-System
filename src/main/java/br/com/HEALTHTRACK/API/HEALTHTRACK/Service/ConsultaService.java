@@ -37,8 +37,7 @@ public class ConsultaService {
 
 
     public void criarConsulta(ConsultaDTO consultaDTO){
-
-
+        
         Paciente paciente = pacienteRepositoryOficial.findByCpf(consultaDTO.cpf())
                 .orElseThrow(() -> new RuntimeException("Paciente não encontrado"));
 
