@@ -16,6 +16,8 @@ import br.com.HEALTHTRACK.API.HEALTHTRACK.Repository.ProfissionalSaudeRepository
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class MedicacaoPacienteSerivce {
 
@@ -58,4 +60,14 @@ public class MedicacaoPacienteSerivce {
 
         return medicacaoPacienteMapper.toDetalhe(medicacaoPaciente);
     }
+
+    public List<MedicacaoPaciente> buscarPorPaciente(String cpf){
+        Paciente paciente = pacienteService.buscarPacientePorCpf(cpf);
+        List<MedicacaoPaciente> medicacaoPacientes = medicacaoRepository.findAllByPacienteCpf(cpf);
+
+        return medicacaoPacientes;
+    }
+
+
+
 }

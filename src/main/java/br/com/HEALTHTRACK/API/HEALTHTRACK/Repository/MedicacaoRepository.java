@@ -1,6 +1,7 @@
 package br.com.HEALTHTRACK.API.HEALTHTRACK.Repository;
 
 import br.com.HEALTHTRACK.API.HEALTHTRACK.Entity.Medicacao;
+import br.com.HEALTHTRACK.API.HEALTHTRACK.Entity.MedicacaoPaciente;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -26,4 +27,5 @@ public interface MedicacaoRepository extends JpaRepository<Medicacao,Long> {
     """)
     List<Medicacao> findByTermoMedicacao(@Param("termo") String termo);
 
+    List<MedicacaoPaciente> findAllByPacienteCpf(String cpf);
 }
