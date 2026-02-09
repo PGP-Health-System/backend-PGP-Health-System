@@ -54,4 +54,20 @@
         @ManyToOne
         @JoinColumn(name = "tratamento_id")
         private Tratamento tratamento;
+
+
+        public void desativar(){
+            if (!this.ativo){
+                throw new RuntimeException("Medicacao do paciente já está desativada");
+            }
+            this.ativo = false;
+            this.dataFim = LocalDate.now();
+        }
+
+
+
+
+
+
+
     }

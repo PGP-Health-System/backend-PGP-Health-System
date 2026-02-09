@@ -13,7 +13,6 @@ import br.com.HEALTHTRACK.API.HEALTHTRACK.Repository.MedicacaoPacienteRepository
 import br.com.HEALTHTRACK.API.HEALTHTRACK.Repository.MedicacaoRepository;
 import br.com.HEALTHTRACK.API.HEALTHTRACK.Repository.PacienteRepository;
 import br.com.HEALTHTRACK.API.HEALTHTRACK.Repository.ProfissionalSaudeRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -74,6 +73,16 @@ public class MedicacaoPacienteSerivce {
                 .map(medicacaoPacienteMapper::toDetalhe)
                 .toList();
     }
+
+    public void desativarMedicacaoPaciente(Long id) {
+        MedicacaoPaciente medicacaoPaciente = medicacaoPacienteRepository
+                .findById(id)
+                .orElseThrow(() -> new MedicamentoNaoLocalizado("Medicação não encontrada"));
+
+        medicacaoPaciente.desativar(); // seta ativo=false ou dataFim=now
+        medicacaoPacienteRepository.save(medicacaoPaciente);
+    }
+
 
 
 }
