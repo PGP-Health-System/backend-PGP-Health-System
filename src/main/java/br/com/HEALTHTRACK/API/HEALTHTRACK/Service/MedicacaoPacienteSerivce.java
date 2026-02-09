@@ -61,13 +61,19 @@ public class MedicacaoPacienteSerivce {
         return medicacaoPacienteMapper.toDetalhe(medicacaoPaciente);
     }
 
-    public List<MedicacaoPaciente> buscarPorPaciente(String cpf){
-        Paciente paciente = pacienteService.buscarPacientePorCpf(cpf);
-        List<MedicacaoPaciente> medicacaoPacientes = medicacaoRepository.findAllByPacienteCpf(cpf);
-
-        return medicacaoPacientes;
+    public List<MedicacaoPacienteDetalhe> buscarPorPaciente(String cpf) {
+        return medicacaoRepository.findAllByPacienteCpf(cpf)
+                .stream()
+                .map(medicacaoPacienteMapper::toDetalhe)
+                .toList();
     }
 
+    public List<MedicacaoPacienteDetalhe> buscarAtivos() {
+        return medicacaoPacienteRepository.findAtivos()
+                .stream()
+                .map(medicacaoPacienteMapper::toDetalhe)
+                .toList();
+    }
 
 
 }
