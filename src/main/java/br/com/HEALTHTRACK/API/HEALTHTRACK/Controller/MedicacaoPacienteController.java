@@ -28,7 +28,6 @@ public class MedicacaoPacienteController {
     public ResponseEntity<MedicacaoPacienteDetalhe> registrar(
             @RequestBody MedicacaoPacienteDTO dto) {
 
-        MedicacaoPacienteService medicacaoPacienteService;
         MedicacaoPacienteDetalhe detalhe =
                 this.medicacaoPacienteService.registraMedicacaoPaciente(dto);
 
