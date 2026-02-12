@@ -18,7 +18,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class MedicacaoPacienteSerivce {
+public class MedicacaoPacienteService {
 
     private MedicacaoPacienteRepository medicacaoPacienteRepository;
     private ProfissionalSaudeRepository profissionalSaudeRepository;
@@ -27,7 +27,7 @@ public class MedicacaoPacienteSerivce {
     private MedicacaoRepository medicacaoRepository;
     private MedicacaoPacienteMapper medicacaoPacienteMapper;
 
-    public MedicacaoPacienteSerivce(MedicacaoPacienteRepository medicacaoPacienteRepository, ProfissionalSaudeRepository profissionalSaudeRepository, PacienteRepository pacienteRepository, PacienteService pacienteService, MedicacaoRepository medicacaoRepository, MedicacaoPacienteMapper medicacaoPacienteMapper) {
+    public MedicacaoPacienteService(MedicacaoPacienteRepository medicacaoPacienteRepository, ProfissionalSaudeRepository profissionalSaudeRepository, PacienteRepository pacienteRepository, PacienteService pacienteService, MedicacaoRepository medicacaoRepository, MedicacaoPacienteMapper medicacaoPacienteMapper) {
         this.medicacaoPacienteRepository = medicacaoPacienteRepository;
         this.profissionalSaudeRepository = profissionalSaudeRepository;
         this.pacienteRepository = pacienteRepository;
@@ -79,7 +79,7 @@ public class MedicacaoPacienteSerivce {
                 .findById(id)
                 .orElseThrow(() -> new MedicamentoNaoLocalizado("Medicação não encontrada"));
 
-        medicacaoPaciente.desativar(); // seta ativo=false ou dataFim=now
+        medicacaoPaciente.desativar();
         medicacaoPacienteRepository.save(medicacaoPaciente);
     }
 
